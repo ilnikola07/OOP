@@ -1,0 +1,147 @@
+﻿<Window x:Class="BusPark.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusPark"
+        mc:Ignorable="d"
+        Title="Управление автобусным парком" Height="500" Width="850" WindowStartupLocation="CenterScreen">
+
+    <!-- Внешняя сетка чтобы была без отступов -->
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" Opacity="0.15"/>
+        </Grid.Background>
+        <Grid>
+            <TabControl TabStripPlacement="Top" Background="Transparent" BorderBrush="Transparent">
+
+
+                <!-- Вкладка 1 формирование данных -->
+            <TabItem Header="Формирование данных">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <!-- Левая колонка для ввода текста и кнопок -->
+                        <ColumnDefinition Width="250"/>
+                        <!-- Правая колонка  -->
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Лево - поля ввода и кнопки -->
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Добавление автобуса:" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Номер автобуса:" Margin="0,5,0,2"/>
+                        <TextBox x:Name="NewBusNumber" Padding="3"/>
+
+                        <TextBlock Text="ФИО водителя:" Margin="0,5,0,2"/>
+                        <TextBox x:Name="NewDriverName" Padding="3"/>
+
+                        <TextBlock Text="Номер маршрута:" Margin="0,5,0,2"/>
+                        <TextBox x:Name="NewRouteNumber" Padding="3"/>
+
+                        <TextBlock Text="  " FontWeight="Bold" Margin="0,0,0,5"/>
+                            <TextBlock Text="Управление:" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Button x:Name="AddBusButton" Content="Добавить в парк" Margin="0,15,0,0" Padding="5"/>
+
+                            <TextBlock Text="  " FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Button x:Name="DeleteBusButton" Content="Удалить выбранный" Padding="5" Background="#FFFFF0F0"/>
+                    </StackPanel>
+
+                    <!-- Право - таблица всей базы данных в парке -->
+                    <GroupBox Grid.Column="1" Header="Список автобусов в парке (база)">
+                        <DataGrid x:Name="DataGridAllBuses" ItemsSource="{Binding AllBuses}" AutoGenerateColumns="False" IsReadOnly="True" Background="Transparent" RowBackground="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Номер" Binding="{Binding BusNumber}" Width="80"/>
+                                <DataGridTextColumn Header="Водитель" Binding="{Binding DriverName}" Width="*"/>
+                                <DataGridTextColumn Header="Маршрут" Binding="{Binding RouteNumber}" Width="70"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Имитация движения">
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <!-- Лево - управление (ввод номера и кнопки) -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- Право - колонка-подсказка со списком всех номеров -->
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Лево - форма ввода -->
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+                        <TextBlock Text="ИМИТАЦИЯ ДВИЖЕНИЯ" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20" FontSize="14"/>
+
+                        <TextBlock Text="Введите номер автобуса:" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox x:Name="BusNumberInput" FontSize="16" Padding="5" Margin="0,0,0,15" TextAlignment="Center"/>
+
+                        <Button x:Name="DepartButton" Content="ВЫЕЗД на маршрут" Padding="10" Margin="0,0,0,10" Background="#FFE6FFE6" FontWeight="Bold"/>
+                        <Button x:Name="ArriveButton" Content="ВЪЕЗД в парк" Padding="10" Background="#FFFFF2E6" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!-- Право - список-подсказка существующих номеров -->
+                        <GroupBox Grid.Column="1" Header="Доступные номера автобусов" Margin="5,0,0,0">
+                            <ListBox x:Name="AvailableNumbersList" ItemsSource="{Binding AllBuses}" SelectionMode="Single">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding BusNumber}" FontWeight="Bold" Width="80"/>
+                                            <TextBlock Text=" - марш. " Foreground="Gray"/>
+                                            <TextBlock Text="{Binding RouteNumber}" Foreground="DarkBlue" FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"/>
+                                        <Setter Property="FontSize" Value="13"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+
+                        </GroupBox>
+                </Grid>
+            </TabItem>
+
+
+
+            <TabItem Header="Вывод сведений">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <!-- Две колонки одинаковой ширины, разделяющие экран пополам -->
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Левая половина это автобусы в парке -->
+                    <GroupBox Grid.Column="0" Header="Автобусы, находящиеся в парке" Margin="5" Foreground="Green">
+                            <DataGrid x:Name="DataGridInPark" ItemsSource="{Binding BusesInPark}" AutoGenerateColumns="False" IsReadOnly="True" Background="Transparent" RowBackground="Transparent">
+                                <DataGrid.Columns>
+                                <DataGridTextColumn Header="№ Автобуса" Binding="{Binding BusNumber}" Width="90"/>
+                                <DataGridTextColumn Header="Водитель" Binding="{Binding DriverName}" Width="*"/>
+                                <DataGridTextColumn Header="Маршрут" Binding="{Binding RouteNumber}" Width="70"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                    <!-- Правая половина это втобусы на маршруте -->
+                    <GroupBox Grid.Column="1" Header="Автобусы, находящиеся на маршруте" Margin="5" Foreground="DarkOrange">
+                            <DataGrid x:Name="DataGridOnRoute" ItemsSource="{Binding BusesOnRoute}" AutoGenerateColumns="False" IsReadOnly="True" Background="Transparent" RowBackground="Transparent">
+                                <DataGrid.Columns>
+                                <DataGridTextColumn Header="№ Автобуса" Binding="{Binding BusNumber}" Width="90"/>
+                                <DataGridTextColumn Header="Водитель" Binding="{Binding DriverName}" Width="*"/>
+                                <DataGridTextColumn Header="Маршрут" Binding="{Binding RouteNumber}" Width="70"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+    </Grid>
+    </Grid>
+</Window>

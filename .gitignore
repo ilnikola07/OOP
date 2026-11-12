@@ -1,0 +1,11 @@
+*.docx
+*.doc
+*.gif
+
+# Visual Studio & C# build files
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.cache
