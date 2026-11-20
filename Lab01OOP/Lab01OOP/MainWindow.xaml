@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab01OOP"
         mc:Ignorable="d"
-        Title="Лабораторная работа 1" Height="700" Width="1000"
-        Loaded="Window_Loaded">
+        Title="Лабораторная работа 2" Height="700" Width="1000">
     <Window.Resources>
         <!-- Стили кнопок для Accent -->
         <Style x:Key="AccentPrimaryBtn" TargetType="Button">
@@ -153,7 +152,12 @@
     </Window.Resources>
 
     <Grid Margin="10">
-        <TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="86*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="859*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.ColumnSpan="3">
 
             <!-- Вкладка основное -->
             <TabItem Header="Основное">
@@ -440,7 +444,9 @@
                                     <RichTextBox Width="280" Height="80" Margin="0,0,0,10">
                                         <FlowDocument>
                                             <Paragraph>
-                                                Это <Bold>жирный</Bold> и <Italic>курсивный</Italic> текст внутри RichTextBox.
+                                                Это
+                                                <Bold>жирный</Bold> и
+                                                <Italic>курсивный</Italic> текст внутри RichTextBox.
                                             </Paragraph>
                                         </FlowDocument>
                                     </RichTextBox>
@@ -560,9 +566,9 @@
                         <TextBlock Text="StackPanel (Стек) - элементы выстраиваются в линию (горизонтально или вертикально)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal">
-                                <Rectangle Fill="#D13438" Width="100" Margin="5"/>
-                                <Rectangle Fill="#FF8C00" Width="100" Margin="5"/>
-                                <Rectangle Fill="#5C2D91" Width="100" Margin="5"/>
+                                <Rectangle Fill="Aquamarine" Width="100" Margin="5"/>
+                                <Rectangle Fill="#FF5C00" Width="100" Margin="5"/>
+                                <Rectangle Fill="#5D2D91" Width="100" Margin="5"/>
                             </StackPanel>
                         </Border>
 
@@ -573,7 +579,7 @@
                                 <Rectangle Fill="#00B7C3" Width="80" Height="50" Margin="5"/>
                                 <Rectangle Fill="#038387" Width="80" Height="50" Margin="5"/>
                                 <Rectangle Fill="#00B294" Width="80" Height="50" Margin="5"/>
-                                <Rectangle Fill="#018B16" Width="80" Height="50" Margin="5"/>
+                                <Rectangle Fill="#013B16" Width="80" Height="50" Margin="5"/>
                                 <Rectangle Fill="#5C2D91" Width="80" Height="50" Margin="5"/>
                             </WrapPanel>
                         </Border>
@@ -594,9 +600,9 @@
                         <TextBlock Text="Canvas (Холст) - элементы позиционируются по координатам" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <Canvas>
-                                <Rectangle Fill="#0078D7" Width="50" Height="50" Canvas.Left="10" Canvas.Top="10"/>
+                                <Rectangle Fill="#6db3af" Width="50" Height="50" Canvas.Left="10" Canvas.Top="10"/>
                                 <Rectangle Fill="#107C10" Width="50" Height="50" Canvas.Left="70" Canvas.Top="40"/>
-                                <Rectangle Fill="#D13438" Width="50" Height="50" Canvas.Left="130" Canvas.Top="15"/>
+                                <Rectangle Fill="#eb38a0" Width="50" Height="50" Canvas.Left="130" Canvas.Top="15"/>
                             </Canvas>
                         </Border>
                     </StackPanel>
