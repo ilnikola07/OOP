@@ -4,193 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab01OOP"
+        xmlns:vm="clr-namespace:Lab01OOP.ViewModels"
         mc:Ignorable="d"
-        Title="Лабораторная работа 2" Height="700" Width="1000">
-    <Window.Resources>
-        <!-- Стили кнопок для Accent -->
-        <Style x:Key="AccentPrimaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="#0078D7"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#0078D7"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="AccentSecondaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#0078D7"/>
-            <Setter Property="BorderBrush" Value="#0078D7"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="AccentTertiaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#0078D7"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <!-- Pressed-варианты (темнее фон) -->
-        <Style x:Key="AccentPrimaryPressedBtn" TargetType="Button" BasedOn="{StaticResource AccentPrimaryBtn}">
-            <Setter Property="Background" Value="#005A9E"/>
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <TranslateTransform Y="1"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="AccentSecondaryPressedBtn" TargetType="Button" BasedOn="{StaticResource AccentSecondaryBtn}">
-            <Setter Property="Background" Value="#0078D7"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style x:Key="AccentTertiaryPressedBtn" TargetType="Button" BasedOn="{StaticResource AccentTertiaryBtn}">
-            <Setter Property="Background" Value="#0078D7"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <!-- Loading-варианты -->
-        <Style x:Key="AccentPrimaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource AccentPrimaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <Style x:Key="AccentSecondaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource AccentSecondaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <Style x:Key="AccentTertiaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource AccentTertiaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <!-- Disabled-варианты -->
-        <Style x:Key="AccentPrimaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource AccentPrimaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Background" Value="#C7C7C7"/>
-            <Setter Property="BorderBrush" Value="#C7C7C7"/>
-        </Style>
-        <Style x:Key="AccentSecondaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource AccentSecondaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Foreground" Value="#C7C7C7"/>
-            <Setter Property="BorderBrush" Value="#C7C7C7"/>
-        </Style>
-        <Style x:Key="AccentTertiaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource AccentTertiaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Foreground" Value="#C7C7C7"/>
-        </Style>
+        Title="Лабораторная работа 2" Height="750" Width="1100">
 
-        <!-- Стили кнопок для Critical -->
-        <Style x:Key="CriticalPrimaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="#D13438"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#D13438"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="CriticalSecondaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#D13438"/>
-            <Setter Property="BorderBrush" Value="#D13438"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="CriticalTertiaryBtn" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#D13438"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="CriticalPrimaryPressedBtn" TargetType="Button" BasedOn="{StaticResource CriticalPrimaryBtn}">
-            <Setter Property="Background" Value="#A4262C"/>
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <TranslateTransform Y="1"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="CriticalSecondaryPressedBtn" TargetType="Button" BasedOn="{StaticResource CriticalSecondaryBtn}">
-            <Setter Property="Background" Value="#D13438"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style x:Key="CriticalTertiaryPressedBtn" TargetType="Button" BasedOn="{StaticResource CriticalTertiaryBtn}">
-            <Setter Property="Background" Value="#D13438"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style x:Key="CriticalPrimaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource CriticalPrimaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <Style x:Key="CriticalSecondaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource CriticalSecondaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <Style x:Key="CriticalTertiaryLoadingBtn" TargetType="Button" BasedOn="{StaticResource CriticalTertiaryBtn}">
-            <Setter Property="Content" Value="Loading..."/>
-            <Setter Property="Opacity" Value="0.6"/>
-        </Style>
-        <Style x:Key="CriticalPrimaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource CriticalPrimaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Background" Value="#C7C7C7"/>
-            <Setter Property="BorderBrush" Value="#C7C7C7"/>
-        </Style>
-        <Style x:Key="CriticalSecondaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource CriticalSecondaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Foreground" Value="#C7C7C7"/>
-            <Setter Property="BorderBrush" Value="#C7C7C7"/>
-        </Style>
-        <Style x:Key="CriticalTertiaryDisabledBtn" TargetType="Button" BasedOn="{StaticResource CriticalTertiaryBtn}">
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Foreground" Value="#C7C7C7"/>
-        </Style>
-    </Window.Resources>
+    <!-- Подключаем ViewModel (ЛР2 п.7) -->
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
 
     <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="86*"/>
-            <ColumnDefinition Width="35*"/>
-            <ColumnDefinition Width="859*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="3">
+        <TabControl>
 
-            <!-- Вкладка основное -->
+            <!-- ============ ВКЛАДКА 1: Основное (ЛР1 п.1.a) ============ -->
             <TabItem Header="Основное">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <!-- Настройки персонализации -->
-                        <GroupBox Header="Настройки персонализации" Margin="0,0,0,15" Padding="10">
+                        <GroupBox Header="Настройки персонализации" Padding="10">
                             <StackPanel>
                                 <TextBlock Text="Тема приложения:" Margin="0,0,0,5"/>
-                                <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,10">
-                                    <ComboBoxItem Content="Светлая"/>
-                                    <ComboBoxItem Content="Темная"/>
-                                    <ComboBoxItem Content="Системная"/>
-                                </ComboBox>
+                                <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,10"
+                                          ItemsSource="{Binding Themes}"
+                                          SelectedItem="{Binding SelectedTheme}"/>
 
                                 <TextBlock Text="Язык приложения:" Margin="0,0,0,5"/>
-                                <ComboBox Width="250" HorizontalAlignment="Left">
-                                    <ComboBoxItem Content="Русский"/>
-                                    <ComboBoxItem Content="English"/>
-                                </ComboBox>
+                                <ComboBox Width="250" HorizontalAlignment="Left"
+                                          ItemsSource="{Binding Languages}"
+                                          SelectedItem="{Binding SelectedLanguage}"/>
                             </StackPanel>
                         </GroupBox>
 
-                        <!-- Настройки шрифтов -->
                         <GroupBox Header="Настройки шрифтов" Padding="10">
                             <StackPanel>
                                 <TextBlock Text="Шрифт:" Margin="0,0,0,5"/>
-                                <ComboBox x:Name="FontFamilyCombo" Width="250" HorizontalAlignment="Left" Margin="0,0,0,15"/>
+                                <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,15"
+                                          ItemsSource="{Binding Fonts}"
+                                          SelectedItem="{Binding SelectedFont}"/>
 
                                 <TextBlock Text="Размер шрифта:" Margin="0,0,0,5"/>
                                 <StackPanel Orientation="Horizontal">
-                                    <Slider x:Name="FontSizeSlider" Width="250" Minimum="8" Maximum="32" Value="14" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                                    <TextBlock Text="{Binding Value, ElementName=FontSizeSlider, StringFormat={}{0:F0} pt}" VerticalAlignment="Center" FontWeight="Bold"/>
+                                    <Slider Width="250" Minimum="8" Maximum="32"
+                                            Value="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <TextBlock Text="{Binding FontSize, StringFormat={}{0:F0} pt}"
+                                               VerticalAlignment="Center" FontWeight="Bold"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -198,15 +55,14 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- Вкладка цветовая палитра -->
+            <!-- ============ ВКЛАДКА 2: Цветовая палитра (ЛР1 п.1.b) ============ -->
             <TabItem Header="Цветовая палитра">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <!-- Наименование текущей темы -->
-                        <TextBlock x:Name="CurrentThemeText" Text="Текущая тема: Светлая (по умолчанию)" FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
+                        <TextBlock Text="{Binding SelectedTheme, StringFormat=Текущая тема: {0}}"
+                                   FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
 
-                        <!-- Сгруппированные цвета -->
-                        <GroupBox Header="Основные и индикаторные цвета" Padding="10" Margin="0,0,0,20">
+                        <GroupBox Header="Основные и индикаторные цвета" Padding="10">
                             <WrapPanel>
                                 <Border Width="120" Height="80" Background="#F3F3F3" Margin="5" BorderBrush="DarkGray" BorderThickness="1">
                                     <TextBlock Text="Основной" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -226,12 +82,12 @@
                             </WrapPanel>
                         </GroupBox>
 
-                        <!-- Таблицы оттенков для каждого цвета -->
-                        <TextBlock Text="Палитра оттенков (10 оттенков для каждого цвета)" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Палитра оттенков (10 оттенков для каждого цвета)" FontWeight="Bold" Margin="0,10,0,10"/>
 
-                        <!-- Основной -->
-                        <GroupBox Header="Основной (#F3F3F3)" Padding="10" Margin="0,0,0,10">
-                            <DataGrid x:Name="ShadesMainDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                        <!-- 5 таблиц с привязками к ViewModel -->
+                        <GroupBox Header="Основной (#F3F3F3)" Padding="10">
+                            <DataGrid ItemsSource="{Binding ShadesMain}" AutoGenerateColumns="False"
+                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Цвет" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -246,9 +102,9 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <!-- Акцентный -->
-                        <GroupBox Header="Акцентный (#0078D7)" Padding="10" Margin="0,0,0,10">
-                            <DataGrid x:Name="ShadesAccentDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                        <GroupBox Header="Акцентный (#0078D7)" Padding="10">
+                            <DataGrid ItemsSource="{Binding ShadesAccent}" AutoGenerateColumns="False"
+                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Цвет" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -263,9 +119,9 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <!-- Успех -->
-                        <GroupBox Header="Успех (#107C10)" Padding="10" Margin="0,0,0,10">
-                            <DataGrid x:Name="ShadesSuccessDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                        <GroupBox Header="Успех (#107C10)" Padding="10">
+                            <DataGrid ItemsSource="{Binding ShadesSuccess}" AutoGenerateColumns="False"
+                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Цвет" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -280,9 +136,9 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <!-- Ошибка -->
-                        <GroupBox Header="Ошибка (#D13438)" Padding="10" Margin="0,0,0,10">
-                            <DataGrid x:Name="ShadesErrorDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                        <GroupBox Header="Ошибка (#D13438)" Padding="10">
+                            <DataGrid ItemsSource="{Binding ShadesError}" AutoGenerateColumns="False"
+                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Цвет" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -297,9 +153,9 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <!-- Информация -->
-                        <GroupBox Header="Информация (#FF8C00)" Padding="10" Margin="0,0,0,10">
-                            <DataGrid x:Name="ShadesInfoDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                        <GroupBox Header="Информация (#FF8C00)" Padding="10">
+                            <DataGrid ItemsSource="{Binding ShadesInfo}" AutoGenerateColumns="False"
+                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Цвет" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -317,16 +173,13 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- Вкладка элементы управления -->
+            <!-- ============ ВКЛАДКА 3: Элементы управления (ЛР1 п.1.c) ============ -->
             <TabItem Header="Элементы управления">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-
-                        <!--  Кнопки для каждого цветового отображения -->
-                        <Expander Header="Кнопки (Акцент / Критический × Основная / Вторичная / Третичная × состояния)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="Кнопки (Акцент / Критический × состояния)" IsExpanded="True" Margin="0,0,0,10">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                 <StackPanel Orientation="Horizontal" Margin="5">
-                                    <!-- Группа Accent -->
                                     <StackPanel Margin="5">
                                         <TextBlock Text="Акцент" FontWeight="Bold" Background="#0078D7" Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
@@ -341,20 +194,14 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-
-                                            <!-- Primary -->
                                             <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Padding="5" Background="#0078D7" Foreground="White"/>
                                             <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Padding="5" Background="#005A9E" Foreground="White"/>
                                             <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Padding="5" Background="#4FADFF" Foreground="Black"/>
                                             <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" Padding="5" Background="#CCCCCC" Foreground="#666666" IsEnabled="False"/>
-
-                                            <!-- Secondary -->
                                             <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Padding="5" Background="White" BorderBrush="#0078D7" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Padding="5" Background="#E6F2FF" BorderBrush="#005A9E" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Padding="5" Background="#E6F2FF" BorderBrush="#4FADFF" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" Padding="5" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
-
-                                            <!-- Tertiary -->
                                             <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Padding="5" Background="Transparent" BorderBrush="#0078D7" BorderThickness="1"/>
                                             <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Padding="5" Background="Transparent" BorderBrush="#005A9E" BorderThickness="1"/>
                                             <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Padding="5" Background="Transparent" BorderBrush="#4FADFF" BorderThickness="1"/>
@@ -362,7 +209,6 @@
                                         </Grid>
                                     </StackPanel>
 
-                                    <!-- Группа Critical -->
                                     <StackPanel Margin="5">
                                         <TextBlock Text="Критический" FontWeight="Bold" Background="#D13438" Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
@@ -377,20 +223,14 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-
-                                            <!-- Primary -->
                                             <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Padding="5" Background="#D13438" Foreground="White"/>
                                             <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Padding="5" Background="#9A272B" Foreground="White"/>
                                             <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Padding="5" Background="#FF8A8A" Foreground="Black"/>
                                             <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" Padding="5" Background="#CCCCCC" Foreground="#666666" IsEnabled="False"/>
-
-                                            <!-- Secondary -->
                                             <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Padding="5" Background="White" BorderBrush="#D13438" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Padding="5" Background="#FFEBEE" BorderBrush="#9A272B" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Padding="5" Background="#FFEBEE" BorderBrush="#FF8A8A" BorderThickness="1"/>
                                             <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" Padding="5" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
-
-                                            <!-- Tertiary -->
                                             <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Padding="5" Background="Transparent" BorderBrush="#D13438" BorderThickness="1"/>
                                             <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Padding="5" Background="Transparent" BorderBrush="#9A272B" BorderThickness="1"/>
                                             <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Padding="5" Background="Transparent" BorderBrush="#FF8A8A" BorderThickness="1"/>
@@ -398,7 +238,6 @@
                                         </Grid>
                                     </StackPanel>
 
-                                    <!-- Переключатели (ToggleButton) -->
                                     <StackPanel Margin="15,0,0,0">
                                         <TextBlock Text="Переключатели" FontWeight="Bold" Margin="0,0,0,5"/>
                                         <WrapPanel>
@@ -411,21 +250,19 @@
                             </ScrollViewer>
                         </Expander>
 
-
-                        <!-- Поля ввода и списки -->
-                        <Expander Header="Поля ввода и списки (TextBox, PasswordBox, ComboBox, ListBox, RichTextBox)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="Поля ввода и списки" IsExpanded="True" Margin="0,0,0,10">
                             <WrapPanel Margin="5">
                                 <StackPanel Margin="5">
                                     <Label Content="TextBox"/>
-                                    <TextBox Width="180" Margin="0,0,0,10" Text="Введите текст..."/>
+                                    <TextBox Width="180" Text="Введите текст..."/>
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="PasswordBox"/>
-                                    <PasswordBox Width="180" Margin="0,0,0,10"/>
+                                    <PasswordBox Width="180"/>
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="ComboBox"/>
-                                    <ComboBox Width="180" Margin="0,0,0,10" SelectedIndex="0">
+                                    <ComboBox Width="180" SelectedIndex="0">
                                         <ComboBoxItem Content="Элемент 1"/>
                                         <ComboBoxItem Content="Элемент 2"/>
                                         <ComboBoxItem Content="Элемент 3"/>
@@ -433,20 +270,20 @@
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="ListBox"/>
-                                    <ListBox Width="180" Height="80" Margin="0,0,0,10">
-                                        <ListBoxItem Content="Элемент списка 1"/>
-                                        <ListBoxItem Content="Элемент списка 2"/>
-                                        <ListBoxItem Content="Элемент списка 3"/>
+                                    <ListBox Width="180" Height="80">
+                                        <ListBoxItem Content="Элемент 1"/>
+                                        <ListBoxItem Content="Элемент 2"/>
+                                        <ListBoxItem Content="Элемент 3"/>
                                     </ListBox>
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="RichTextBox"/>
-                                    <RichTextBox Width="280" Height="80" Margin="0,0,0,10">
+                                    <RichTextBox Width="280" Height="80">
                                         <FlowDocument>
                                             <Paragraph>
                                                 Это
                                                 <Bold>жирный</Bold> и
-                                                <Italic>курсивный</Italic> текст внутри RichTextBox.
+                                                <Italic>курсивный</Italic> текст.
                                             </Paragraph>
                                         </FlowDocument>
                                     </RichTextBox>
@@ -454,20 +291,18 @@
                             </WrapPanel>
                         </Expander>
 
-                        <!-- Текст и метки -->
-                        <Expander Header="Текст и метки (TextBlock, Label)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="Текст и метки" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
                                 <Label Content="Заголовок 1 (H1)" FontSize="24" FontWeight="Bold"/>
                                 <Label Content="Заголовок 2 (H2)" FontSize="18" FontWeight="SemiBold"/>
                                 <Label Content="Заголовок 3 (H3)" FontSize="14" FontWeight="Medium"/>
-                                <TextBlock Text="Обычный текст (Body)" Margin="0,5,0,0" FontSize="14"/>
+                                <TextBlock Text="Обычный текст (Body)" FontSize="14"/>
                                 <TextBlock Text="Подпись (Caption)" FontSize="10" Foreground="Gray"/>
                             </StackPanel>
                         </Expander>
 
-                        <!-- TreeView -->
                         <Expander Header="TreeView" IsExpanded="True" Margin="0,0,0,10">
-                            <TreeView Width="250" Height="150" Margin="5" HorizontalAlignment="Left">
+                            <TreeView Width="250" Height="150" HorizontalAlignment="Left">
                                 <TreeViewItem Header="Корневой узел 1">
                                     <TreeViewItem Header="Подузел 1.1"/>
                                     <TreeViewItem Header="Подузел 1.2">
@@ -480,9 +315,9 @@
                             </TreeView>
                         </Expander>
 
-                        <!-- DataGrid -->
-                        <Expander Header="DataGrid" IsExpanded="True" Margin="0,0,0,10">
-                            <DataGrid x:Name="SampleDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Height="180" Margin="5">
+                        <Expander Header="DataGrid (привязан к ViewModel)" IsExpanded="True" Margin="0,0,0,10">
+                            <DataGrid ItemsSource="{Binding SampleItems}" AutoGenerateColumns="False"
+                                      CanUserAddRows="False" IsReadOnly="True" Height="180" Margin="5">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                                     <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"/>
@@ -491,7 +326,6 @@
                             </DataGrid>
                         </Expander>
 
-                        <!-- ProgressBar -->
                         <Expander Header="ProgressBar" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
                                 <TextBlock Text="Определённый (65%)" Margin="0,0,0,5"/>
@@ -501,16 +335,14 @@
                             </StackPanel>
                         </Expander>
 
-                        <!-- Всплывающие подсказки -->
-                        <Expander Header="Всплывающие подсказки (ToolTip)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="Всплывающие подсказки" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <Button Content="Наведи на меня" Margin="0,0,0,10" Padding="10,5" HorizontalAlignment="Left"
+                                <Button Content="Наведи на меня" Padding="10,5" HorizontalAlignment="Left"
                                         ToolTip="Это всплывающая подсказка!"/>
                                 <TextBlock Text="Наведи и на этот текст" ToolTip="ToolTip работает и на TextBlock"/>
                             </StackPanel>
                         </Expander>
 
-                        <!-- Меню и контекстное меню -->
                         <Expander Header="Меню и контекстное меню" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
                                 <Menu Margin="0,0,0,15">
@@ -539,12 +371,11 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- Вкладка контейнеры компоновки -->
+            <!-- ============ ВКЛАДКА 4: Контейнеры компоновки (ЛР1 п.1.d) ============ -->
             <TabItem Header="Контейнеры компоновки">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <!-- Grid -->
-                        <TextBlock Text="Grid (Сетка) - элементы делят пространство по колонкам и строкам" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="Grid (Сетка)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -562,8 +393,7 @@
                             </Grid>
                         </Border>
 
-                        <!-- StackPanel -->
-                        <TextBlock Text="StackPanel (Стек) - элементы выстраиваются в линию (горизонтально или вертикально)" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="StackPanel (Стек)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal">
                                 <Rectangle Fill="Aquamarine" Width="100" Margin="5"/>
@@ -572,8 +402,7 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- WrapPanel -->
-                        <TextBlock Text="WrapPanel (Панель с переносом) - элементы переносятся на новую строку при нехватке места" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="WrapPanel (Панель с переносом)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <WrapPanel>
                                 <Rectangle Fill="#00B7C3" Width="80" Height="50" Margin="5"/>
@@ -584,8 +413,7 @@
                             </WrapPanel>
                         </Border>
 
-                        <!-- DockPanel -->
-                        <TextBlock Text="DockPanel (Панель закрепления) - элементы закрепляются у краёв контейнера" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="DockPanel (Панель закрепления)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <DockPanel>
                                 <Rectangle Fill="#0078D7" Width="40" DockPanel.Dock="Left" Margin="3"/>
@@ -596,8 +424,7 @@
                             </DockPanel>
                         </Border>
 
-                        <!-- Canvas -->
-                        <TextBlock Text="Canvas (Холст) - элементы позиционируются по координатам" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="Canvas (Холст)" FontWeight="Bold" Margin="0,0,0,5"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <Canvas>
                                 <Rectangle Fill="#6db3af" Width="50" Height="50" Canvas.Left="10" Canvas.Top="10"/>
@@ -605,6 +432,105 @@
                                 <Rectangle Fill="#eb38a0" Width="50" Height="50" Canvas.Left="130" Canvas.Top="15"/>
                             </Canvas>
                         </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ============ ВКЛАДКА 5: Работа с данными (ЛР2 п.5, п.6) ============ -->
+            <TabItem Header="Работа с данными">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Исходная таблица -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Исходная таблица" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <ToolBarTray>
+                            <ToolBar>
+                                <Button Content="Добавить" Command="{Binding AddCommand}" Padding="8,4" Margin="2"/>
+                                <Separator/>
+                                <Button Content="Удалить" Command="{Binding DeleteCommand}" Padding="8,4" Margin="2"/>
+                                <Separator/>
+                                <Button Content="Копировать" Command="{Binding CopyCommand}" Padding="8,4" Margin="2"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                        <DataGrid ItemsSource="{Binding SourceShades}"
+                      SelectedItem="{Binding SelectedSourceShade, Mode=TwoWay}"
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Цвет" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{Binding ColorBrush}" Height="20" Margin="2"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="RGB" Binding="{Binding RgbCode}" Width="*"/>
+                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+
+                    <!-- Вертикальный разделитель вместо стрелки -->
+                    <Border Grid.Column="1" Width="1" Background="#D0D0D0" Margin="20,0"/>
+
+                    <!-- Целевая таблица -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Целевая таблица" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <ToolBarTray>
+                            <ToolBar>
+                                <Button Content="Вставить" Command="{Binding PasteCommand}" Padding="8,4" Margin="2"/>
+                                <Separator/>
+                                <Button Content="Очистить" Command="{Binding ClearTargetCommand}" Padding="8,4" Margin="2"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                        <DataGrid ItemsSource="{Binding TargetShades}"
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Цвет" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{Binding ColorBrush}" Height="20" Margin="2"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="RGB" Binding="{Binding RgbCode}" Width="*"/>
+                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- ============ ВКЛАДКА 6: Типы привязок (ЛР2 п.8) ============ -->
+            <TabItem Header="Типы привязок">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20" MaxWidth="600" HorizontalAlignment="Left">
+                        <TextBlock Text="Демонстрация режимов привязки" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                        <TextBlock Text="Измените значение на слайдере вкладки «Основное» и наблюдайте, какие поля обновятся."
+                                   Foreground="Gray" Margin="0,0,0,15"/>
+
+                        <GroupBox Header="OneTime (значение фиксируется при загрузке)">
+                            <TextBox Text="{Binding FontSize, Mode=OneTime, StringFormat={}{0:F0}}" Margin="10"/>
+                        </GroupBox>
+
+                        <GroupBox Header="OneWay (только из ViewModel в UI)">
+                            <TextBox Text="{Binding FontSize, Mode=OneWay, StringFormat={}{0:F0}}" Margin="10"/>
+                        </GroupBox>
+
+                        <GroupBox Header="TwoWay + PropertyChanged (мгновенное обновление)">
+                            <TextBox Text="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F0}}" Margin="10"/>
+                        </GroupBox>
+
+                        <GroupBox Header="TwoWay + LostFocus (обновление при потере фокуса)">
+                            <TextBox Text="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:F0}}" Margin="10"/>
+                        </GroupBox>
+
+                        <TextBlock Text="Текущее значение FontSize в ViewModel:" FontWeight="Bold" Margin="0,20,0,5"/>
+                        <TextBlock Text="{Binding FontSize}" FontSize="32" Foreground="#0078D7"/>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

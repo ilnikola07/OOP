@@ -8,7 +8,6 @@ namespace Lab01OOP
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
