@@ -1,0 +1,74 @@
+{
+  "App.Title": {
+    "ru": "Лабораторная работа 2",
+    "en": "Laboratory Work 2"
+  },
+  "Tab.Main": {
+    "ru": "Основное",
+    "en": "Main"
+  },
+  "Tab.Palette": {
+    "ru": "Цветовая палитра",
+    "en": "Color Palette"
+  },
+  "Tab.Controls": {
+    "ru": "Элементы управления",
+    "en": "Controls"
+  },
+  "Tab.Containers": {
+    "ru": "Контейнеры компоновки",
+    "en": "Layout Containers"
+  },
+  "Tab.Data": {
+    "ru": "Работа с данными",
+    "en": "Data Operations"
+  },
+  "Tab.Bindings": {
+    "ru": "Типы привязок",
+    "en": "Binding Types"
+  },
+  "Settings.Personalization": {
+    "ru": "Настройки персонализации",
+    "en": "Personalization Settings"
+  },
+  "Settings.Theme": {
+    "ru": "Тема приложения:",
+    "en": "Application Theme:"
+  },
+  "Settings.Language": {
+    "ru": "Язык приложения:",
+    "en": "Application Language:"
+  },
+  "Settings.Fonts": {
+    "ru": "Настройки шрифтов",
+    "en": "Font Settings"
+  },
+  "Settings.Font": {
+    "ru": "Шрифт:",
+    "en": "Font:"
+  },
+  "Settings.FontSize": {
+    "ru": "Размер шрифта:",
+    "en": "Font Size:"
+  },
+  "Data.Add": {
+    "ru": "Добавить",
+    "en": "Add"
+  },
+  "Data.Delete": {
+    "ru": "Удалить",
+    "en": "Delete"
+  },
+  "Data.Copy": {
+    "ru": "Копировать",
+    "en": "Copy"
+  },
+  "Data.Paste": {
+    "ru": "Вставить",
+    "en": "Paste"
+  },
+  "Data.Clear": {
+    "ru": "Очистить",
+    "en": "Clear"
+  }
+}

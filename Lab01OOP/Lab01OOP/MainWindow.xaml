@@ -1,14 +1,18 @@
 <Window x:Class="Lab01OOP.MainWindow"
+        xmlns:local="clr-namespace:Lab01OOP"
+        xmlns:loc="clr-namespace:CodingSeb.Localization.WPF;assembly=CodingSeb.Localization.WPF"
+
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lab01OOP"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"      
         xmlns:vm="clr-namespace:Lab01OOP.ViewModels"
         mc:Ignorable="d"
-        Title="Лабораторная работа 2" Height="750" Width="1100">
+        FontFamily="{Binding SelectedFont}"
+        Background="{DynamicResource BackgroundBrush}"
+        Foreground="{DynamicResource TextPrimaryBrush}" Title="{Tr 'App.Title'}" Height="750" Width="1100">
 
-    <!-- Подключаем ViewModel (ЛР2 п.7) -->
+    <!-- Подключение ViewModel -->
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -16,32 +20,32 @@
     <Grid Margin="10">
         <TabControl>
 
-            <!-- ============ ВКЛАДКА 1: Основное (ЛР1 п.1.a) ============ -->
-            <TabItem Header="Основное">
+            <!-- ВКЛАДКА 1: Основное -->
+            <TabItem Header="{Tr 'Tab.Main'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <GroupBox Header="Настройки персонализации" Padding="10">
+                        <GroupBox Header="Настройки персонализации">
                             <StackPanel>
-                                <TextBlock Text="Тема приложения:" Margin="0,0,0,5"/>
+                                <TextBlock Text="Тема приложения:" Style="{StaticResource BodyTextStyle}"/>
                                 <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,10"
                                           ItemsSource="{Binding Themes}"
                                           SelectedItem="{Binding SelectedTheme}"/>
 
-                                <TextBlock Text="Язык приложения:" Margin="0,0,0,5"/>
+                                <TextBlock Text="Язык приложения:" Style="{StaticResource BodyTextStyle}"/>
                                 <ComboBox Width="250" HorizontalAlignment="Left"
                                           ItemsSource="{Binding Languages}"
                                           SelectedItem="{Binding SelectedLanguage}"/>
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox Header="Настройки шрифтов" Padding="10">
+                        <GroupBox Header="Настройки шрифтов">
                             <StackPanel>
-                                <TextBlock Text="Шрифт:" Margin="0,0,0,5"/>
+                                <TextBlock Text="Шрифт:" Style="{StaticResource BodyTextStyle}"/>
                                 <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,15"
                                           ItemsSource="{Binding Fonts}"
                                           SelectedItem="{Binding SelectedFont}"/>
 
-                                <TextBlock Text="Размер шрифта:" Margin="0,0,0,5"/>
+                                <TextBlock Text="Размер шрифта:" Style="{StaticResource BodyTextStyle}"/>
                                 <StackPanel Orientation="Horizontal">
                                     <Slider Width="250" Minimum="8" Maximum="32"
                                             Value="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -55,37 +59,40 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- ============ ВКЛАДКА 2: Цветовая палитра (ЛР1 п.1.b) ============ -->
-            <TabItem Header="Цветовая палитра">
+            <!-- ВКЛАДКА 2: Цветовая палитра -->
+            <TabItem Header="{Tr 'Tab.Palette'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
+                        <!-- Использование стиля заголовка и привязка к теме -->
                         <TextBlock Text="{Binding SelectedTheme, StringFormat=Текущая тема: {0}}"
-                                   FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
+                                   Style="{StaticResource Heading2Style}" Margin="0,0,0,20"/>
 
-                        <GroupBox Header="Основные и индикаторные цвета" Padding="10">
+                        <GroupBox Header="Основные и индикаторные цвета">
                             <WrapPanel>
-                                <Border Width="120" Height="80" Background="#F3F3F3" Margin="5" BorderBrush="DarkGray" BorderThickness="1">
+                                <Border Width="120" Height="80" Background="{StaticResource BackgroundBrush}" 
+                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
                                     <TextBlock Text="Основной" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="#0078D7" Margin="5">
+                                <Border Width="120" Height="80" Background="{StaticResource PrimaryBrush}" Margin="5">
                                     <TextBlock Text="Акцентный" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="#107C10" Margin="5">
+                                <Border Width="120" Height="80" Background="{StaticResource SuccessBrush}" Margin="5">
                                     <TextBlock Text="Успех" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="#D13438" Margin="5">
+                                <Border Width="120" Height="80" Background="{StaticResource ErrorBrush}" Margin="5">
                                     <TextBlock Text="Ошибка" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="#FF8C00" Margin="5">
+                                <Border Width="120" Height="80" Background="{StaticResource InfoBrush}" Margin="5">
                                     <TextBlock Text="Информация" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
                             </WrapPanel>
                         </GroupBox>
 
-                        <TextBlock Text="Палитра оттенков (10 оттенков для каждого цвета)" FontWeight="Bold" Margin="0,10,0,10"/>
+                        <TextBlock Text="Палитра оттенков (10 оттенков для каждого цвета)" 
+                                   Style="{StaticResource Heading3Style}" Margin="0,10,0,10"/>
 
-                        <!-- 5 таблиц с привязками к ViewModel -->
-                        <GroupBox Header="Основной (#F3F3F3)" Padding="10">
+                        <!-- Таблицы с оттенками используют автоматический стиль DataGrid из ресурсов -->
+                        <GroupBox Header="Основной (#F3F3F3)">
                             <DataGrid ItemsSource="{Binding ShadesMain}" AutoGenerateColumns="False"
                                       HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
@@ -102,7 +109,7 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Акцентный (#0078D7)" Padding="10">
+                        <GroupBox Header="Акцентный (#0078D7)">
                             <DataGrid ItemsSource="{Binding ShadesAccent}" AutoGenerateColumns="False"
                                       HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
@@ -119,7 +126,7 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Успех (#107C10)" Padding="10">
+                        <GroupBox Header="Успех (#107C10)">
                             <DataGrid ItemsSource="{Binding ShadesSuccess}" AutoGenerateColumns="False"
                                       HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
@@ -136,7 +143,7 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Ошибка (#D13438)" Padding="10">
+                        <GroupBox Header="Ошибка (#D13438)">
                             <DataGrid ItemsSource="{Binding ShadesError}" AutoGenerateColumns="False"
                                       HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
@@ -153,7 +160,7 @@
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Информация (#FF8C00)" Padding="10">
+                        <GroupBox Header="Информация (#FF8C00)">
                             <DataGrid ItemsSource="{Binding ShadesInfo}" AutoGenerateColumns="False"
                                       HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
@@ -173,15 +180,16 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- ============ ВКЛАДКА 3: Элементы управления (ЛР1 п.1.c) ============ -->
-            <TabItem Header="Элементы управления">
+            <!-- ВКЛАДКА 3: Элементы управления -->
+            <TabItem Header="{Tr 'Tab.Controls'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
                         <Expander Header="Кнопки (Акцент / Критический × состояния)" IsExpanded="True" Margin="0,0,0,10">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <StackPanel Margin="5">
-                                        <TextBlock Text="Акцент" FontWeight="Bold" Background="#0078D7" Foreground="White" Padding="5" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Акцент" FontWeight="Bold" Background="{StaticResource PrimaryBrush}" 
+                                                   Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="80"/>
@@ -194,23 +202,28 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Padding="5" Background="#0078D7" Foreground="White"/>
-                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Padding="5" Background="#005A9E" Foreground="White"/>
-                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Padding="5" Background="#4FADFF" Foreground="Black"/>
-                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" Padding="5" Background="#CCCCCC" Foreground="#666666" IsEnabled="False"/>
-                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Padding="5" Background="White" BorderBrush="#0078D7" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Padding="5" Background="#E6F2FF" BorderBrush="#005A9E" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Padding="5" Background="#E6F2FF" BorderBrush="#4FADFF" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" Padding="5" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
-                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Padding="5" Background="Transparent" BorderBrush="#0078D7" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Padding="5" Background="Transparent" BorderBrush="#005A9E" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Padding="5" Background="Transparent" BorderBrush="#4FADFF" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" Padding="5" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
+
+                                            <!-- Кнопки используют стиль PrimaryButtonStyle -->
+                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Style="{StaticResource PrimaryButtonStyle}"/>
+                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Background="#005A9E" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Background="#4FADFF" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" IsEnabled="False" Padding="12,6" Margin="5"/>
+
+                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Background="White" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Background="#E6F2FF" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Background="#E6F2FF" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+
+                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Background="Transparent" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Background="Transparent" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Background="Transparent" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Margin="5">
-                                        <TextBlock Text="Критический" FontWeight="Bold" Background="#D13438" Foreground="White" Padding="5" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Критический" FontWeight="Bold" Background="{StaticResource ErrorBrush}" 
+                                                   Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="80"/>
@@ -223,27 +236,30 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Padding="5" Background="#D13438" Foreground="White"/>
-                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Padding="5" Background="#9A272B" Foreground="White"/>
-                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Padding="5" Background="#FF8A8A" Foreground="Black"/>
-                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" Padding="5" Background="#CCCCCC" Foreground="#666666" IsEnabled="False"/>
-                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Padding="5" Background="White" BorderBrush="#D13438" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Padding="5" Background="#FFEBEE" BorderBrush="#9A272B" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Padding="5" Background="#FFEBEE" BorderBrush="#FF8A8A" BorderThickness="1"/>
-                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" Padding="5" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
-                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Padding="5" Background="Transparent" BorderBrush="#D13438" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Padding="5" Background="Transparent" BorderBrush="#9A272B" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Padding="5" Background="Transparent" BorderBrush="#FF8A8A" BorderThickness="1"/>
-                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" Padding="5" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" IsEnabled="False"/>
+
+                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Background="{StaticResource ErrorBrush}" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Background="#9A272B" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Background="#FF8A8A" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" IsEnabled="False" Padding="12,6" Margin="5"/>
+
+                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Background="White" BorderBrush="{StaticResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Background="#FFEBEE" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Background="#FFEBEE" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+
+                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Background="Transparent" BorderBrush="{StaticResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Background="Transparent" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Background="Transparent" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Margin="15,0,0,0">
-                                        <TextBlock Text="Переключатели" FontWeight="Bold" Margin="0,0,0,5"/>
+                                        <TextBlock Text="Переключатели" Style="{StaticResource Heading3Style}"/>
                                         <WrapPanel>
-                                            <ToggleButton Content="Акцент" Padding="10,5" Margin="5" Background="#0078D7" Foreground="White"/>
-                                            <ToggleButton Content="Критический" Padding="10,5" Margin="5" Background="#D13438" Foreground="White"/>
-                                            <ToggleButton Content="Неактивен" Padding="10,5" Margin="5" Background="#CCCCCC" Foreground="#666666" IsEnabled="False"/>
+                                            <ToggleButton Content="Акцент" Padding="10,5" Margin="5" Background="{StaticResource PrimaryBrush}" Foreground="White"/>
+                                            <ToggleButton Content="Критический" Padding="10,5" Margin="5" Background="{StaticResource ErrorBrush}" Foreground="White"/>
+                                            <ToggleButton Content="Неактивен" Padding="10,5" Margin="5" IsEnabled="False"/>
                                         </WrapPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -293,11 +309,11 @@
 
                         <Expander Header="Текст и метки" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <Label Content="Заголовок 1 (H1)" FontSize="24" FontWeight="Bold"/>
-                                <Label Content="Заголовок 2 (H2)" FontSize="18" FontWeight="SemiBold"/>
-                                <Label Content="Заголовок 3 (H3)" FontSize="14" FontWeight="Medium"/>
-                                <TextBlock Text="Обычный текст (Body)" FontSize="14"/>
-                                <TextBlock Text="Подпись (Caption)" FontSize="10" Foreground="Gray"/>
+                                <TextBlock Text="Заголовок 1 (H1)" Style="{StaticResource Heading1Style}"/>
+                                <TextBlock Text="Заголовок 2 (H2)" Style="{StaticResource Heading2Style}"/>
+                                <TextBlock Text="Заголовок 3 (H3)" Style="{StaticResource Heading3Style}"/>
+                                <TextBlock Text="Обычный текст (Body)" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="Подпись (Caption)" Style="{StaticResource CaptionStyle}"/>
                             </StackPanel>
                         </Expander>
 
@@ -328,17 +344,16 @@
 
                         <Expander Header="ProgressBar" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <TextBlock Text="Определённый (65%)" Margin="0,0,0,5"/>
+                                <TextBlock Text="Определённый (65%)" Style="{StaticResource BodyTextStyle}"/>
                                 <ProgressBar Width="300" Height="20" Value="65" Maximum="100" HorizontalAlignment="Left" Margin="0,0,0,15"/>
-                                <TextBlock Text="Неопределённый (Indeterminate)" Margin="0,0,0,5"/>
+                                <TextBlock Text="Неопределённый (Indeterminate)" Style="{StaticResource BodyTextStyle}"/>
                                 <ProgressBar Width="300" Height="20" IsIndeterminate="True" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Expander>
 
                         <Expander Header="Всплывающие подсказки" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <Button Content="Наведи на меня" Padding="10,5" HorizontalAlignment="Left"
-                                        ToolTip="Это всплывающая подсказка!"/>
+                                <Button Content="Наведи на меня" ToolTip="Это всплывающая подсказка!"/>
                                 <TextBlock Text="Наведи и на этот текст" ToolTip="ToolTip работает и на TextBlock"/>
                             </StackPanel>
                         </Expander>
@@ -356,7 +371,7 @@
                                         <MenuItem Header="Вставить"/>
                                     </MenuItem>
                                 </Menu>
-                                <Button Content="Нажми ПКМ для контекстного меню" HorizontalAlignment="Left" Padding="10,5">
+                                <Button Content="Нажми ПКМ для контекстного меню">
                                     <Button.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Контекстное действие 1"/>
@@ -371,12 +386,12 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- ============ ВКЛАДКА 4: Контейнеры компоновки (ЛР1 п.1.d) ============ -->
-            <TabItem Header="Контейнеры компоновки">
+            <!-- ВКЛАДКА 4: Контейнеры компоновки -->
+            <TabItem Header="{Tr 'Tab.Containers'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <TextBlock Text="Grid (Сетка)" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,15">
+                        <TextBlock Text="Grid (Сетка)" Style="{StaticResource Heading3Style}"/>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -386,15 +401,15 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Rectangle Fill="#0078D7" Grid.Column="0" Grid.Row="0" Margin="5"/>
-                                <Rectangle Fill="#107C10" Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                <Rectangle Fill="#D13438" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                                <Rectangle Fill="#FF8C00" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                <Rectangle Fill="{StaticResource PrimaryBrush}" Grid.Column="0" Grid.Row="0" Margin="5"/>
+                                <Rectangle Fill="{StaticResource SuccessBrush}" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                <Rectangle Fill="{StaticResource ErrorBrush}" Grid.Column="0" Grid.Row="1" Margin="5"/>
+                                <Rectangle Fill="{StaticResource InfoBrush}" Grid.Column="1" Grid.Row="1" Margin="5"/>
                             </Grid>
                         </Border>
 
-                        <TextBlock Text="StackPanel (Стек)" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,15">
+                        <TextBlock Text="StackPanel (Стек)" Style="{StaticResource Heading3Style}"/>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal">
                                 <Rectangle Fill="Aquamarine" Width="100" Margin="5"/>
                                 <Rectangle Fill="#FF5C00" Width="100" Margin="5"/>
@@ -402,8 +417,8 @@
                             </StackPanel>
                         </Border>
 
-                        <TextBlock Text="WrapPanel (Панель с переносом)" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="WrapPanel (Панель с переносом)" Style="{StaticResource Heading3Style}"/>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <WrapPanel>
                                 <Rectangle Fill="#00B7C3" Width="80" Height="50" Margin="5"/>
                                 <Rectangle Fill="#038387" Width="80" Height="50" Margin="5"/>
@@ -413,22 +428,22 @@
                             </WrapPanel>
                         </Border>
 
-                        <TextBlock Text="DockPanel (Панель закрепления)" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="DockPanel (Панель закрепления)" Style="{StaticResource Heading3Style}"/>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <DockPanel>
-                                <Rectangle Fill="#0078D7" Width="40" DockPanel.Dock="Left" Margin="3"/>
-                                <Rectangle Fill="#D13438" Width="40" DockPanel.Dock="Right" Margin="3"/>
-                                <Rectangle Fill="#107C10" Height="30" DockPanel.Dock="Top" Margin="3"/>
-                                <Rectangle Fill="#FF8C00" Height="30" DockPanel.Dock="Bottom" Margin="3"/>
+                                <Rectangle Fill="{StaticResource PrimaryBrush}" Width="40" DockPanel.Dock="Left" Margin="3"/>
+                                <Rectangle Fill="{StaticResource ErrorBrush}" Width="40" DockPanel.Dock="Right" Margin="3"/>
+                                <Rectangle Fill="{StaticResource SuccessBrush}" Height="30" DockPanel.Dock="Top" Margin="3"/>
+                                <Rectangle Fill="{StaticResource InfoBrush}" Height="30" DockPanel.Dock="Bottom" Margin="3"/>
                                 <Rectangle Fill="#5C2D91" Margin="3"/>
                             </DockPanel>
                         </Border>
 
-                        <TextBlock Text="Canvas (Холст)" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="Canvas (Холст)" Style="{StaticResource Heading3Style}"/>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <Canvas>
                                 <Rectangle Fill="#6db3af" Width="50" Height="50" Canvas.Left="10" Canvas.Top="10"/>
-                                <Rectangle Fill="#107C10" Width="50" Height="50" Canvas.Left="70" Canvas.Top="40"/>
+                                <Rectangle Fill="{StaticResource SuccessBrush}" Width="50" Height="50" Canvas.Left="70" Canvas.Top="40"/>
                                 <Rectangle Fill="#eb38a0" Width="50" Height="50" Canvas.Left="130" Canvas.Top="15"/>
                             </Canvas>
                         </Border>
@@ -436,8 +451,8 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- ============ ВКЛАДКА 5: Работа с данными (ЛР2 п.5, п.6) ============ -->
-            <TabItem Header="Работа с данными">
+            <!-- ВКЛАДКА 5: Работа с данными -->
+            <TabItem Header="{Tr 'Tab.Data'}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -445,21 +460,20 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Исходная таблица -->
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="Исходная таблица" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Исходная таблица" Style="{StaticResource Heading2Style}"/>
                         <ToolBarTray>
                             <ToolBar>
-                                <Button Content="Добавить" Command="{Binding AddCommand}" Padding="8,4" Margin="2"/>
+                                <Button Content="{Tr 'Data.Add'}" Command="{Binding AddCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="Удалить" Command="{Binding DeleteCommand}" Padding="8,4" Margin="2"/>
+                                <Button Content="{Tr 'Data.Delete'}" Command="{Binding DeleteCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="Копировать" Command="{Binding CopyCommand}" Padding="8,4" Margin="2"/>
+                                <Button Content="{Tr 'Data.Copy'}" Command="{Binding CopyCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
                             </ToolBar>
                         </ToolBarTray>
                         <DataGrid ItemsSource="{Binding SourceShades}"
-                      SelectedItem="{Binding SelectedSourceShade, Mode=TwoWay}"
-                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                                  SelectedItem="{Binding SelectedSourceShade, Mode=TwoWay}"
+                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Цвет" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -474,21 +488,19 @@
                         </DataGrid>
                     </StackPanel>
 
-                    <!-- Вертикальный разделитель вместо стрелки -->
-                    <Border Grid.Column="1" Width="1" Background="#D0D0D0" Margin="20,0"/>
+                    <Border Grid.Column="1" Width="1" Background="{StaticResource BorderBrush}" Margin="20,0"/>
 
-                    <!-- Целевая таблица -->
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="Целевая таблица" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Целевая таблица" Style="{StaticResource Heading2Style}"/>
                         <ToolBarTray>
                             <ToolBar>
-                                <Button Content="Вставить" Command="{Binding PasteCommand}" Padding="8,4" Margin="2"/>
+                                <Button Content="{Tr 'Data.Paste'}" Command="{Binding PasteCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="Очистить" Command="{Binding ClearTargetCommand}" Padding="8,4" Margin="2"/>
+                                <Button Content="{Tr 'Data.Clear'}" Command="{Binding ClearTargetCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
                             </ToolBar>
                         </ToolBarTray>
                         <DataGrid ItemsSource="{Binding TargetShades}"
-                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Цвет" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -505,13 +517,13 @@
                 </Grid>
             </TabItem>
 
-            <!-- ============ ВКЛАДКА 6: Типы привязок (ЛР2 п.8) ============ -->
-            <TabItem Header="Типы привязок">
+            <!-- ВКЛАДКА 6: Типы привязок -->
+            <TabItem Header="{Tr 'Tab.Bindings'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="20" MaxWidth="600" HorizontalAlignment="Left">
-                        <TextBlock Text="Демонстрация режимов привязки" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                        <TextBlock Text="Демонстрация режимов привязки" Style="{StaticResource Heading1Style}"/>
                         <TextBlock Text="Измените значение на слайдере вкладки «Основное» и наблюдайте, какие поля обновятся."
-                                   Foreground="Gray" Margin="0,0,0,15"/>
+                                   Style="{StaticResource CaptionStyle}" Margin="0,0,0,15"/>
 
                         <GroupBox Header="OneTime (значение фиксируется при загрузке)">
                             <TextBox Text="{Binding FontSize, Mode=OneTime, StringFormat={}{0:F0}}" Margin="10"/>
@@ -529,8 +541,9 @@
                             <TextBox Text="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:F0}}" Margin="10"/>
                         </GroupBox>
 
-                        <TextBlock Text="Текущее значение FontSize в ViewModel:" FontWeight="Bold" Margin="0,20,0,5"/>
-                        <TextBlock Text="{Binding FontSize}" FontSize="32" Foreground="#0078D7"/>
+                        <TextBlock Text="Текущее значение FontSize в ViewModel:" Style="{StaticResource Heading3Style}" Margin="0,20,0,5"/>
+
+                        <TextBlock Text="{Binding FontSize}" FontSize="32" Foreground="{StaticResource PrimaryBrush}"/>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

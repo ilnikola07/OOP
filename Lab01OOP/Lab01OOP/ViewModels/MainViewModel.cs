@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -10,20 +11,53 @@ namespace Lab01OOP.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        // === Вкладка "Основное" (ЛР1 п.1.a + ЛР2 п.3, п.7) ===
+        // Вкладка "Основное" 
 
         private string _selectedTheme = "Светлая";
         public string SelectedTheme
         {
             get => _selectedTheme;
-            set { _selectedTheme = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedTheme = value;
+                OnPropertyChanged();
+                ApplyTheme(value);
+            }
         }
+
+        private void ApplyTheme(string theme)
+        {
+            var res = System.Windows.Application.Current.Resources;
+
+            if (theme == "Темная")
+            {
+                res["BackgroundBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E"));
+                res["SurfaceBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D30"));
+                res["BorderBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3F3F46"));
+                res["TextPrimaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F1F1F1"));
+                res["TextSecondaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A0A0A0"));
+            }
+            else // "Светлая" (или "Системная")
+            {
+                res["BackgroundBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3F3F3"));
+                res["SurfaceBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
+                res["BorderBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E0E0E0"));
+                res["TextPrimaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#202020"));
+                res["TextSecondaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#606060"));
+            }
+        }
+
 
         private string _selectedLanguage = "Русский";
         public string SelectedLanguage
         {
             get => _selectedLanguage;
-            set { _selectedLanguage = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedLanguage = value;
+                OnPropertyChanged();
+                Loc.Instance.CurrentLanguage = (value == "English") ? "en" : "ru";
+            }
         }
 
         private string _selectedFont = "Segoe UI";
@@ -40,7 +74,7 @@ namespace Lab01OOP.ViewModels
             set { _fontSize = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<string> Themes { get; } =
+        public ObservableCollection<string> Themes { get; } = // Коллекции для выпадающих список
             new ObservableCollection<string> { "Светлая", "Темная", "Системная" };
 
         public ObservableCollection<string> Languages { get; } =
@@ -49,7 +83,7 @@ namespace Lab01OOP.ViewModels
         public ObservableCollection<string> Fonts { get; } =
             new ObservableCollection<string>(FontsHelper.GetSystemFontNames());
 
-        // === Вкладка "Цветовая палитра" (ЛР1 п.1.b.iii) ===
+        // Вкладка "Цветовая палитра" 
 
         public ObservableCollection<ColorShade> ShadesMain { get; } = ShadeGenerator.Generate("#F3F3F3", "Основной");
         public ObservableCollection<ColorShade> ShadesAccent { get; } = ShadeGenerator.Generate("#0078D7", "Акцентный");
@@ -57,7 +91,7 @@ namespace Lab01OOP.ViewModels
         public ObservableCollection<ColorShade> ShadesError { get; } = ShadeGenerator.Generate("#D13438", "Ошибка");
         public ObservableCollection<ColorShade> ShadesInfo { get; } = ShadeGenerator.Generate("#FF8C00", "Информация");
 
-        // === Вкладка "Элементы управления" (ЛР1 п.1.c) ===
+        // Вкладка "Элементы управления" 
 
         public ObservableCollection<SampleItem> SampleItems { get; } = new ObservableCollection<SampleItem>
         {
@@ -66,13 +100,13 @@ namespace Lab01OOP.ViewModels
             new SampleItem { Id = 3, Title = "Третий элемент", IsActive = true  },
         };
 
-        // === Вкладка "Работа с данными" (ЛР2 п.5, п.6) ===
+        // Вкладка "Работа с данными" 
 
         public ObservableCollection<ColorShade> SourceShades { get; } = new ObservableCollection<ColorShade>();
         public ObservableCollection<ColorShade> TargetShades { get; } = new ObservableCollection<ColorShade>();
 
         private ColorShade _selectedSourceShade;
-        public ColorShade SelectedSourceShade
+        public ColorShade SelectedSourceShade // Сюда попадает строка, которую пользователь выделил мышкой в таблице
         {
             get => _selectedSourceShade;
             set
@@ -144,8 +178,6 @@ namespace Lab01OOP.ViewModels
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-    // === Вспомогательные классы ===
-
     public class ColorShade
     {
         public Brush ColorBrush { get; set; }
@@ -178,9 +210,8 @@ namespace Lab01OOP.ViewModels
 
             for (int i = 0; i < 10; i++)
             {
-                double factor = 1.0 - (i * 0.2); // 1.0, 0.8, 0.6 ... 0.0
+                double factor = 1.0 - (i * 0.2); 
 
-                // Совместимо с .NET Framework 4.7.2 (вместо Math.Clamp)
                 byte r = (byte)Math.Max(0, Math.Min(255, (int)(rgb.R * factor)));
                 byte g = (byte)Math.Max(0, Math.Min(255, (int)(rgb.G * factor)));
                 byte b = (byte)Math.Max(0, Math.Min(255, (int)(rgb.B * factor)));
