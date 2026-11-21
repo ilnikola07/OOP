@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Lab01OOP.ViewModels
 {
@@ -13,23 +15,32 @@ namespace Lab01OOP.ViewModels
     {
         // Вкладка "Основное" 
 
-        private string _selectedTheme = "Светлая";
-        public string SelectedTheme
+        public ObservableCollection<ThemeOption> Themes { get; } =
+            new ObservableCollection<ThemeOption>
+            {
+                new ThemeOption("Theme.Light"),
+                new ThemeOption("Theme.Dark"),
+                new ThemeOption("Theme.System")
+            };
+
+        private ThemeOption _selectedTheme;
+        public ThemeOption SelectedTheme
         {
             get => _selectedTheme;
             set
             {
                 _selectedTheme = value;
                 OnPropertyChanged();
-                ApplyTheme(value);
+                if (value != null)
+                    ApplyTheme(value.Key);
             }
         }
 
-        private void ApplyTheme(string theme)
+        private void ApplyTheme(string themeKey)
         {
             var res = System.Windows.Application.Current.Resources;
 
-            if (theme == "Темная")
+            if (themeKey == "Theme.Dark")
             {
                 res["BackgroundBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E"));
                 res["SurfaceBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D30"));
@@ -37,7 +48,7 @@ namespace Lab01OOP.ViewModels
                 res["TextPrimaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F1F1F1"));
                 res["TextSecondaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A0A0A0"));
             }
-            else // "Светлая" (или "Системная")
+            else // "Theme.Light" (или "Theme.System")
             {
                 res["BackgroundBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3F3F3"));
                 res["SurfaceBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
@@ -46,7 +57,6 @@ namespace Lab01OOP.ViewModels
                 res["TextSecondaryBrush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#606060"));
             }
         }
-
 
         private string _selectedLanguage = "Русский";
         public string SelectedLanguage
@@ -74,9 +84,6 @@ namespace Lab01OOP.ViewModels
             set { _fontSize = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<string> Themes { get; } = // Коллекции для выпадающих список
-            new ObservableCollection<string> { "Светлая", "Темная", "Системная" };
-
         public ObservableCollection<string> Languages { get; } =
             new ObservableCollection<string> { "Русский", "English" };
 
@@ -85,53 +92,46 @@ namespace Lab01OOP.ViewModels
 
         // Вкладка "Цветовая палитра" 
 
-        public ObservableCollection<ColorShade> ShadesMain { get; } = ShadeGenerator.Generate("#F3F3F3", "Основной");
-        public ObservableCollection<ColorShade> ShadesAccent { get; } = ShadeGenerator.Generate("#0078D7", "Акцентный");
-        public ObservableCollection<ColorShade> ShadesSuccess { get; } = ShadeGenerator.Generate("#107C10", "Успех");
-        public ObservableCollection<ColorShade> ShadesError { get; } = ShadeGenerator.Generate("#D13438", "Ошибка");
-        public ObservableCollection<ColorShade> ShadesInfo { get; } = ShadeGenerator.Generate("#FF8C00", "Информация");
+        public ObservableCollection<ColorShade> ShadesMain { get; } = ShadeGenerator.Generate("#F3F3F3", "Palette.Main");
+        public ObservableCollection<ColorShade> ShadesAccent { get; } = ShadeGenerator.Generate("#0078D7", "Palette.Accent");
+        public ObservableCollection<ColorShade> ShadesSuccess { get; } = ShadeGenerator.Generate("#107C10", "Palette.Success");
+        public ObservableCollection<ColorShade> ShadesError { get; } = ShadeGenerator.Generate("#D13438", "Palette.Error");
+        public ObservableCollection<ColorShade> ShadesInfo { get; } = ShadeGenerator.Generate("#FF8C00", "Palette.Info");
 
         // Вкладка "Элементы управления" 
 
         public ObservableCollection<SampleItem> SampleItems { get; } = new ObservableCollection<SampleItem>
         {
-            new SampleItem { Id = 1, Title = "Первый элемент", IsActive = true  },
-            new SampleItem { Id = 2, Title = "Второй элемент", IsActive = false },
-            new SampleItem { Id = 3, Title = "Третий элемент", IsActive = true  },
+            new SampleItem { Id = 1, TitleKey = "Sample.Item1", IsActive = true  },
+            new SampleItem { Id = 2, TitleKey = "Sample.Item2", IsActive = false },
+            new SampleItem { Id = 3, TitleKey = "Sample.Item3", IsActive = true  },
         };
+
 
         // Вкладка "Работа с данными" 
 
         public ObservableCollection<ColorShade> SourceShades { get; } = new ObservableCollection<ColorShade>();
         public ObservableCollection<ColorShade> TargetShades { get; } = new ObservableCollection<ColorShade>();
 
-        private ColorShade _selectedSourceShade;
-        public ColorShade SelectedSourceShade // Сюда попадает строка, которую пользователь выделил мышкой в таблице
-        {
-            get => _selectedSourceShade;
-            set
-            {
-                _selectedSourceShade = value;
-                OnPropertyChanged();
-                CommandManager.InvalidateRequerySuggested();
-            }
-        }
-
-        private ColorShade _clipboardShade;
+        private List<ColorShade> _clipboardShades = new List<ColorShade>();
 
         public ICommand AddCommand { get; }
-        public ICommand DeleteCommand { get; }
+        public ICommand DeleteSourceCommand { get; }
+        public ICommand DeleteTargetCommand { get; }
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
         public ICommand ClearTargetCommand { get; }
 
         public MainViewModel()
         {
+            // Устанавливаем Светлую тему по умолчанию при старте
+            _selectedTheme = Themes[0];
+
             // Тестовые данные для исходной таблицы
-            SourceShades.Add(new ColorShade { ColorBrush = Brushes.White, RgbCode = "#FFFFFF", Name = "Белый" });
-            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(0, 120, 215)), RgbCode = "#0078D7", Name = "Синий" });
-            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(16, 124, 16)), RgbCode = "#107C10", Name = "Зелёный" });
-            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(209, 52, 56)), RgbCode = "#D13438", Name = "Красный" });
+            SourceShades.Add(new ColorShade { ColorBrush = Brushes.White, RgbCode = "#FFFFFF", NameKey = "Color.White" });
+            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(0, 120, 215)), RgbCode = "#0078D7", NameKey = "Color.Blue" });
+            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(16, 124, 16)), RgbCode = "#107C10", NameKey = "Color.Green" });
+            SourceShades.Add(new ColorShade { ColorBrush = new SolidColorBrush(Color.FromRgb(209, 52, 56)), RgbCode = "#D13438", NameKey = "Color.Red" });
 
             AddCommand = new RelayCommand(_ =>
             {
@@ -142,33 +142,60 @@ namespace Lab01OOP.ViewModels
                         (byte)(new Random().Next(256)),
                         (byte)(new Random().Next(256)))),
                     RgbCode = "#RANDOM",
-                    Name = $"Новый цвет #{SourceShades.Count + 1}"
+                    NameKey = "Color.New",
+                    IsNewColor = true,
+                    Index = SourceShades.Count + 1
                 });
             });
 
-            DeleteCommand = new RelayCommand(_ =>
-            {
-                if (SelectedSourceShade != null)
-                    SourceShades.Remove(SelectedSourceShade);
-            }, _ => SelectedSourceShade != null);
 
-            CopyCommand = new RelayCommand(_ =>
+            DeleteSourceCommand = new RelayCommand(param =>
             {
-                _clipboardShade = SelectedSourceShade;
-            }, _ => SelectedSourceShade != null);
+                if (param is IList selectedItems && selectedItems.Count > 0)
+                {
+                    foreach (var item in selectedItems.Cast<ColorShade>().ToList())
+                    {
+                        SourceShades.Remove(item);
+                    }
+                }
+            }, param => param is IList list && list.Count > 0);
+
+            DeleteTargetCommand = new RelayCommand(param =>
+            {
+                if (param is IList selectedItems && selectedItems.Count > 0)
+                {
+                    foreach (var item in selectedItems.Cast<ColorShade>().ToList())
+                    {
+                        TargetShades.Remove(item);
+                    }
+                }
+            }, param => param is IList list && list.Count > 0);
+
+            CopyCommand = new RelayCommand(param =>
+            {
+                if (param is IList selectedItems && selectedItems.Count > 0)
+                {
+                    _clipboardShades = selectedItems.Cast<ColorShade>().ToList();
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }, param => param is IList list && list.Count > 0);
 
             PasteCommand = new RelayCommand(_ =>
             {
-                if (_clipboardShade != null)
+                foreach (var item in _clipboardShades)
                 {
                     TargetShades.Add(new ColorShade
                     {
-                        ColorBrush = _clipboardShade.ColorBrush,
-                        RgbCode = _clipboardShade.RgbCode,
-                        Name = _clipboardShade.Name + " (копия)"
+                        ColorBrush = item.ColorBrush,
+                        RgbCode = item.RgbCode,
+                        NameKey = item.NameKey,
+                        Index = item.Index,
+                        IsNewColor = item.IsNewColor,
+                        IsCopy = true
                     });
                 }
-            }, _ => _clipboardShade != null);
+            }, _ => _clipboardShades != null && _clipboardShades.Count > 0);
+
 
             ClearTargetCommand = new RelayCommand(_ => TargetShades.Clear());
         }
@@ -178,39 +205,82 @@ namespace Lab01OOP.ViewModels
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-    public class ColorShade
+
+    public class ThemeOption : INotifyPropertyChanged
+    {
+        public string Key { get; }
+        public string Title => Loc.Instance.Translate(Key);
+
+        public ThemeOption(string key)
+        {
+            Key = key;
+            Loc.Instance.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(Loc.CurrentLanguage) || string.IsNullOrEmpty(e.PropertyName))
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+            };
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class ColorShade : INotifyPropertyChanged
     {
         public Brush ColorBrush { get; set; }
         public string RgbCode { get; set; }
-        public string Name { get; set; }
+
+        public string NameKey { get; set; }
+        public int Index { get; set; }
+        public bool IsNewColor { get; set; }
+        public bool IsCopy { get; set; }
+        private string _customName;
+
+        public string Name
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(NameKey))
+                    return _customName;
+
+                string baseName = Loc.Instance.Translate(NameKey);
+
+                if (Index > 0)
+                    baseName += IsNewColor ? $" #{Index}" : $" ({Index})";
+
+                if (IsCopy)
+                    baseName += $" {Loc.Instance.Translate("Color.Copy")}";
+
+                return baseName;
+            }
+            set => _customName = value;
+        }
+
+        public ColorShade()
+        {
+            Loc.Instance.PropertyChanged += (s, e) =>
+            {
+                if (!string.IsNullOrEmpty(NameKey) &&
+                    (e.PropertyName == nameof(Loc.CurrentLanguage) || string.IsNullOrEmpty(e.PropertyName)))
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                }
+            };
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class SampleItem
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public bool IsActive { get; set; }
-    }
-
-    public static class FontsHelper
-    {
-        public static System.Collections.Generic.IEnumerable<string> GetSystemFontNames()
-            => System.Windows.Media.Fonts.SystemFontFamilies
-                .Select(f => f.Source)
-                .OrderBy(s => s);
-    }
 
     public static class ShadeGenerator
     {
-        // Генерирует 10 оттенков от светлого к тёмному для заданного базового цвета
-        public static ObservableCollection<ColorShade> Generate(string hex, string baseName)
+        public static ObservableCollection<ColorShade> Generate(string hex, string baseNameKey)
         {
             var result = new ObservableCollection<ColorShade>();
             var rgb = (Color)ColorConverter.ConvertFromString(hex);
 
             for (int i = 0; i < 10; i++)
             {
-                double factor = 1.0 - (i * 0.2); 
+                double factor = 1.0 - (i * 0.2);
 
                 byte r = (byte)Math.Max(0, Math.Min(255, (int)(rgb.R * factor)));
                 byte g = (byte)Math.Max(0, Math.Min(255, (int)(rgb.G * factor)));
@@ -222,10 +292,44 @@ namespace Lab01OOP.ViewModels
                 {
                     ColorBrush = new SolidColorBrush(c),
                     RgbCode = $"#{r:X2}{g:X2}{b:X2}",
-                    Name = $"{baseName} ({i + 1})"
+                    NameKey = baseNameKey,
+                    Index = i + 1
                 });
             }
             return result;
         }
     }
+    public class SampleItem : INotifyPropertyChanged
+    {
+        public int Id { get; set; }
+        public string TitleKey { get; set; }
+        public bool IsActive { get; set; }
+
+        public string Title => !string.IsNullOrEmpty(TitleKey)
+            ? Loc.Instance.Translate(TitleKey)
+            : string.Empty;
+
+        public SampleItem()
+        {
+            Loc.Instance.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(Loc.CurrentLanguage) || string.IsNullOrEmpty(e.PropertyName))
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+                }
+            };
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public static class FontsHelper
+    {
+        public static System.Collections.Generic.IEnumerable<string> GetSystemFontNames()
+            => System.Windows.Media.Fonts.SystemFontFamilies
+                .Select(f => f.Source)
+                .OrderBy(s => s);
+    }
+
+
 }

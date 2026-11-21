@@ -51,6 +51,90 @@
     "ru": "Размер шрифта:",
     "en": "Font Size:"
   },
+  "Controls.ExpButtons": {
+    "ru": "Кнопки (Акцент / Критический + состояния)",
+    "en": "Buttons (Accent / Critical + states)"
+  },
+  "Controls.ExpInputs": {
+    "ru": "Поля ввода и списки",
+    "en": "Inputs and Lists"
+  },
+  "Controls.ExpText": {
+    "ru": "Текст и метки",
+    "en": "Text and Labels"
+  },
+  "Controls.Accent": {
+    "ru": "Акцент",
+    "en": "Accent"
+  },
+  "Controls.Critical": {
+    "ru": "Критический",
+    "en": "Critical"
+  },
+  "Controls.Switches": {
+    "ru": "Переключатели",
+    "en": "Switches"
+  },
+  "Controls.Normal": {
+    "ru": "Обычная",
+    "en": "Normal"
+  },
+  "Controls.Pressed": {
+    "ru": "Нажата",
+    "en": "Pressed"
+  },
+  "Controls.Loading": {
+    "ru": "Загрузка",
+    "en": "Loading"
+  },
+  "Controls.Disabled": {
+    "ru": "Неактивна",
+    "en": "Disabled"
+  },
+  "Controls.DisabledSwitch": {
+    "ru": "Неактивен",
+    "en": "Disabled"
+  },
+  "Controls.EnterText": {
+    "ru": "Введите текст...",
+    "en": "Enter text..."
+  },
+  "Controls.RichText": {
+    "ru": "Это жирный и курсивный текст.",
+    "en": "This is bold and italic text."
+  },
+  "Controls.H1": {
+    "ru": "Заголовок 1 (H1)",
+    "en": "Heading 1 (H1)"
+  },
+  "Controls.H2": {
+    "ru": "Заголовок 2 (H2)",
+    "en": "Heading 2 (H2)"
+  },
+  "Controls.H3": {
+    "ru": "Заголовок 3 (H3)",
+    "en": "Heading 3 (H3)"
+  },
+  "Controls.Body": {
+    "ru": "Обычный текст (Body)",
+    "en": "Body text (Body)"
+  },
+  "Data.SourceTable": {
+    "ru": "Исходная таблица",
+    "en": "Source Table"
+  },
+  "Data.TargetTable": {
+    "ru": "Целевая таблица",
+    "en": "Target Table"
+  },
+  "Data.ColColor": {
+    "ru": "Цвет",
+    "en": "Color"
+  },
+  "Data.ColName": {
+    "ru": "Наименование",
+    "en": "Name"
+  },
   "Data.Add": {
     "ru": "Добавить",
     "en": "Add"
@@ -70,5 +154,279 @@
   "Data.Clear": {
     "ru": "Очистить",
     "en": "Clear"
+  },
+    "Sample.Item1": {
+    "ru": "Первый элемент",
+    "en": "First item"
+  },
+  "Sample.Item2": {
+    "ru": "Второй элемент",
+    "en": "Second item"
+  },
+  "Sample.Item3": {
+    "ru": "Третий элемент",
+    "en": "Third item"
   }
+,
+  "Controls.TreeRoot1": {
+    "ru": "Корневой узел 1",
+    "en": "Root Node 1"
+  },
+  "Controls.TreeSub1_1": {
+    "ru": "Подузел 1.1",
+    "en": "Subnode 1.1"
+  },
+  "Controls.TreeSub1_2": {
+    "ru": "Подузел 1.2",
+    "en": "Subnode 1.2"
+  },
+  "Controls.TreeNested1_2_1": {
+    "ru": "Вложенный 1.2.1",
+    "en": "Nested 1.2.1"
+  },
+  "Controls.TreeRoot2": {
+    "ru": "Корневой узел 2",
+    "en": "Root Node 2"
+  },
+  "Controls.TreeSub2_1": {
+    "ru": "Подузел 2.1",
+    "en": "Subnode 2.1"
+  },
+  "Controls.ExpDataGrid": {
+    "ru": "DataGrid (привязан к ViewModel)",
+    "en": "DataGrid (bound to ViewModel)"
+  },
+  "Controls.ColTitle": {
+    "ru": "Название",
+    "en": "Title"
+  },
+  "Controls.ColActive": {
+    "ru": "Активен",
+    "en": "Active"
+  },
+  "Controls.ProgDeterminate": {
+    "ru": "Определённый (65%)",
+    "en": "Determinate (65%)"
+  },
+  "Controls.ProgIndeterminate": {
+    "ru": "Неопределённый (Indeterminate)",
+    "en": "Indeterminate"
+  },
+  "Controls.ExpTooltips": {
+    "ru": "Всплывающие подсказки",
+    "en": "Tooltips"
+  },
+  "Controls.HoverButton": {
+    "ru": "Наведи на меня",
+    "en": "Hover over me"
+  },
+  "Controls.ButtonTooltip": {
+    "ru": "Это всплывающая подсказка!",
+    "en": "This is a tooltip!"
+  },
+  "Controls.HoverText": {
+    "ru": "Наведи и на этот текст",
+    "en": "Hover over this text too"
+  },
+  "Controls.TextTooltip": {
+    "ru": "ToolTip работает и на TextBlock",
+    "en": "ToolTip works on TextBlock too"
+  },
+  "Controls.ExpMenus": {
+    "ru": "Меню и контекстное меню",
+    "en": "Menu and Context Menu"
+  },
+  "Controls.MenuFile": {
+    "ru": "Файл",
+    "en": "File"
+  },
+  "Controls.MenuOpen": {
+    "ru": "Открыть",
+    "en": "Open"
+  },
+  "Controls.MenuSave": {
+    "ru": "Сохранить",
+    "en": "Save"
+  },
+  "Controls.MenuExit": {
+    "ru": "Выход",
+    "en": "Exit"
+  },
+  "Controls.MenuEdit": {
+    "ru": "Правка",
+    "en": "Edit"
+  },
+  "Controls.MenuCopy": {
+    "ru": "Копировать",
+    "en": "Copy"
+  },
+  "Controls.MenuPaste": {
+    "ru": "Вставить",
+    "en": "Paste"
+  },
+  "Controls.RightClickBtn": {
+    "ru": "Нажми ПКМ для контекстного меню",
+    "en": "Right-click for context menu"
+  },
+  "Controls.CtxAction1": {
+    "ru": "Контекстное действие 1",
+    "en": "Context Action 1"
+  },
+  "Controls.CtxAction2": {
+    "ru": "Контекстное действие 2",
+    "en": "Context Action 2"
+  },
+  "Controls.CtxAction3": {
+    "ru": "Контекстное действие 3",
+    "en": "Context Action 3"
+  },
+  "Palette.CurrentTheme": {
+    "ru": "Текущая тема: ",
+    "en": "Current theme: "
+  },
+  "Palette.MainAndIndicator": {
+    "ru": "Основные и индикаторные цвета",
+    "en": "Main and Indicator Colors"
+  },
+  "Palette.Main": {
+    "ru": "Основной",
+    "en": "Main"
+  },
+  "Palette.Accent": {
+    "ru": "Акцентный",
+    "en": "Accent"
+  },
+  "Palette.Success": {
+    "ru": "Успех",
+    "en": "Success"
+  },
+  "Palette.Error": {
+    "ru": "Ошибка",
+    "en": "Error"
+  },
+  "Palette.Info": {
+    "ru": "Информация",
+    "en": "Information"
+  },
+  "Palette.ShadesTitle": {
+    "ru": "Палитра оттенков (10 оттенков для каждого цвета)",
+    "en": "Shades Palette (10 shades for each color)"
+  },
+  "Palette.ColColor": {
+    "ru": "Цвет",
+    "en": "Color"
+  },
+  "Palette.ColRgb": {
+    "ru": "RGB код",
+    "en": "RGB Code"
+  },
+  "Palette.ColName": {
+    "ru": "Наименование",
+    "en": "Name"
+  },
+  "Bindings.Title": {
+    "ru": "Демонстрация режимов привязки",
+    "en": "Binding Modes Demonstration"
+  },
+  "Bindings.Subtitle": {
+    "ru": "Измените значение на слайдере вкладки «Основное» и наблюдайте, какие поля обновятся.",
+    "en": "Change the slider value on the 'Main' tab and observe which fields update."
+  },
+  "Bindings.OneTime": {
+    "ru": "OneTime (значение фиксируется при загрузке)",
+    "en": "OneTime (value is fixed on load)"
+  },
+  "Bindings.OneWay": {
+    "ru": "OneWay (только из ViewModel в UI)",
+    "en": "OneWay (from ViewModel to UI only)"
+  },
+  "Bindings.TwoWayProp": {
+    "ru": "TwoWay + PropertyChanged (мгновенное обновление)",
+    "en": "TwoWay + PropertyChanged (instant update)"
+  },
+  
+  "Bindings.TwoWayLost": {
+    "ru": "TwoWay + LostFocus (обновление при потере фокуса)",
+    "en": "TwoWay + LostFocus (update on lost focus)"
+  },
+  "Bindings.CurrentVal": {
+    "ru": "Текущее значение FontSize в ViewModel:",
+    "en": "Current FontSize value in ViewModel:"
+  },  "Palette.GroupMain": {
+    "ru": "Основной (#F3F3F3)",
+    "en": "Main (#F3F3F3)"
+  },
+  "Palette.GroupAccent": {
+    "ru": "Акцентный (#0078D7)",
+    "en": "Accent (#0078D7)"
+  },
+  "Palette.GroupSuccess": {
+    "ru": "Успех (#107C10)",
+    "en": "Success (#107C10)"
+  },
+  "Palette.GroupError": {
+    "ru": "Ошибка (#D13438)",
+    "en": "Error (#D13438)"
+  },
+  "Palette.GroupInfo": {
+    "ru": "Информация (#FF8C00)",
+    "en": "Information (#FF8C00)"
+  },  "Containers.Grid": {
+    "ru": "Grid (Сетка)",
+    "en": "Grid (Grid)"
+  },
+  "Containers.StackPanel": {
+    "ru": "StackPanel (Стек)",
+    "en": "StackPanel (Stack)"
+  },
+  "Containers.WrapPanel": {
+    "ru": "WrapPanel (Панель с переносом)",
+    "en": "WrapPanel (Wrap Panel)"
+  },
+  "Containers.DockPanel": {
+    "ru": "DockPanel (Панель закрепления)",
+    "en": "DockPanel (Dock Panel)"
+  },
+  "Containers.Canvas": {
+    "ru": "Canvas (Холст)",
+    "en": "Canvas (Canvas)"
+  },  "Theme.Light": {
+    "ru": "Светлая",
+    "en": "Light"
+  },
+  "Theme.Dark": {
+    "ru": "Темная",
+    "en": "Dark"
+  },
+  "Theme.System": {
+    "ru": "Системная",
+    "en": "System"
+  },  "Color.White": {
+    "ru": "Белый",
+    "en": "White"
+  },
+  "Color.Blue": {
+    "ru": "Синий",
+    "en": "Blue"
+  },
+  "Color.Green": {
+    "ru": "Зелёный",
+    "en": "Green"
+  },
+  "Color.Red": {
+    "ru": "Красный",
+    "en": "Red"
+  },
+  "Color.New": {
+    "ru": "Новый цвет",
+    "en": "New color"
+  },
+  "Color.Copy": {
+    "ru": "(копия)",
+    "en": "(copy)"
+  }
+
+
+
+
 }

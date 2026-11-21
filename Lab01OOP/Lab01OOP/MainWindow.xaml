@@ -17,6 +17,13 @@
         <vm:MainViewModel/>
     </Window.DataContext>
 
+    <Window.InputBindings>
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CopyCommand}"/>
+        <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding PasteCommand}"/>
+        <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddCommand}"/>
+    </Window.InputBindings>
+
     <Grid Margin="10">
         <TabControl>
 
@@ -24,34 +31,34 @@
             <TabItem Header="{Tr 'Tab.Main'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <GroupBox Header="Настройки персонализации">
+                        <GroupBox Header="{Tr 'Settings.Personalization'}">
                             <StackPanel>
-                                <TextBlock Text="Тема приложения:" Style="{StaticResource BodyTextStyle}"/>
-                                <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,10"
-                                          ItemsSource="{Binding Themes}"
-                                          SelectedItem="{Binding SelectedTheme}"/>
+                                <TextBlock Text="{Tr 'Settings.Theme'}" Style="{DynamicResource BodyTextStyle}"/>
+                                <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,10" DisplayMemberPath="Title"
+                              ItemsSource="{Binding Themes}"
+                              SelectedItem="{Binding SelectedTheme}"/>
 
-                                <TextBlock Text="Язык приложения:" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Settings.Language'}" Style="{DynamicResource BodyTextStyle}"/>
                                 <ComboBox Width="250" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding Languages}"
-                                          SelectedItem="{Binding SelectedLanguage}"/>
+                              ItemsSource="{Binding Languages}"
+                              SelectedItem="{Binding SelectedLanguage}"/>
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox Header="Настройки шрифтов">
+                        <GroupBox Header="{Tr 'Settings.Fonts'}">
                             <StackPanel>
-                                <TextBlock Text="Шрифт:" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Settings.Font'}" Style="{DynamicResource BodyTextStyle}"/>
                                 <ComboBox Width="250" HorizontalAlignment="Left" Margin="0,0,0,15"
-                                          ItemsSource="{Binding Fonts}"
-                                          SelectedItem="{Binding SelectedFont}"/>
+                              ItemsSource="{Binding Fonts}"
+                              SelectedItem="{Binding SelectedFont}"/>
 
-                                <TextBlock Text="Размер шрифта:" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Settings.FontSize'}" Style="{DynamicResource BodyTextStyle}"/>
                                 <StackPanel Orientation="Horizontal">
                                     <Slider Width="250" Minimum="8" Maximum="32"
-                                            Value="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                Value="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                VerticalAlignment="Center" Margin="0,0,15,0"/>
                                     <TextBlock Text="{Binding FontSize, StringFormat={}{0:F0} pt}"
-                                               VerticalAlignment="Center" FontWeight="Bold"/>
+                                   VerticalAlignment="Center" FontWeight="Bold"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -59,120 +66,123 @@
                 </ScrollViewer>
             </TabItem>
 
+
             <!-- ВКЛАДКА 2: Цветовая палитра -->
             <TabItem Header="{Tr 'Tab.Palette'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
                         <!-- Использование стиля заголовка и привязка к теме -->
-                        <TextBlock Text="{Binding SelectedTheme, StringFormat=Текущая тема: {0}}"
-                                   Style="{StaticResource Heading2Style}" Margin="0,0,0,20"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="{Tr 'Palette.CurrentTheme'}" Style="{DynamicResource Heading2Style}" Margin="0"/>
+                            <TextBlock Text="{Binding SelectedTheme.Title}" Style="{DynamicResource Heading2Style}" Margin="0"/>
+                        </StackPanel>
 
-                        <GroupBox Header="Основные и индикаторные цвета">
+                        <GroupBox Header="{Tr 'Palette.MainAndIndicator'}">
                             <WrapPanel>
-                                <Border Width="120" Height="80" Background="{StaticResource BackgroundBrush}" 
-                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                    <TextBlock Text="Основной" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Width="120" Height="80" Background="{DynamicResource BackgroundBrush}" 
+                            Margin="5" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                                    <TextBlock Text="{Tr 'Palette.Main'}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="{StaticResource PrimaryBrush}" Margin="5">
-                                    <TextBlock Text="Акцентный" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                <Border Width="120" Height="80" Background="{DynamicResource PrimaryBrush}" Margin="5">
+                                    <TextBlock Text="{Tr 'Palette.Accent'}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="{StaticResource SuccessBrush}" Margin="5">
-                                    <TextBlock Text="Успех" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                <Border Width="120" Height="80" Background="{DynamicResource SuccessBrush}" Margin="5">
+                                    <TextBlock Text="{Tr 'Palette.Success'}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="{StaticResource ErrorBrush}" Margin="5">
-                                    <TextBlock Text="Ошибка" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                <Border Width="120" Height="80" Background="{DynamicResource ErrorBrush}" Margin="5">
+                                    <TextBlock Text="{Tr 'Palette.Error'}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
-                                <Border Width="120" Height="80" Background="{StaticResource InfoBrush}" Margin="5">
-                                    <TextBlock Text="Информация" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                <Border Width="120" Height="80" Background="{DynamicResource InfoBrush}" Margin="5">
+                                    <TextBlock Text="{Tr 'Palette.Info'}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                 </Border>
                             </WrapPanel>
                         </GroupBox>
 
-                        <TextBlock Text="Палитра оттенков (10 оттенков для каждого цвета)" 
-                                   Style="{StaticResource Heading3Style}" Margin="0,10,0,10"/>
+                        <TextBlock Text="{Tr 'Palette.ShadesTitle'}" 
+                       Style="{DynamicResource Heading3Style}" Margin="0,10,0,10"/>
 
                         <!-- Таблицы с оттенками используют автоматический стиль DataGrid из ресурсов -->
-                        <GroupBox Header="Основной (#F3F3F3)">
+                        <GroupBox Header="{Tr 'Palette.GroupMain'}">
                             <DataGrid ItemsSource="{Binding ShadesMain}" AutoGenerateColumns="False"
-                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                          HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Цвет" Width="100">
+                                    <DataGridTemplateColumn Header="{Tr 'Palette.ColColor'}" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Background="{Binding ColorBrush}" Height="20" Margin="2" BorderBrush="LightGray" BorderThickness="1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="RGB код" Binding="{Binding RgbCode}" Width="*"/>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColRgb'}" Binding="{Binding RgbCode}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColName'}" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Акцентный (#0078D7)">
+                        <GroupBox Header="{Tr 'Palette.GroupAccent'}">
                             <DataGrid ItemsSource="{Binding ShadesAccent}" AutoGenerateColumns="False"
-                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+              HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Цвет" Width="100">
+                                    <DataGridTemplateColumn Header="{Tr 'Palette.ColColor'}" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Background="{Binding ColorBrush}" Height="20" Margin="2" BorderBrush="LightGray" BorderThickness="1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="RGB код" Binding="{Binding RgbCode}" Width="*"/>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColRgb'}" Binding="{Binding RgbCode}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColName'}" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Успех (#107C10)">
+                        <GroupBox Header="{Tr 'Palette.GroupSuccess'}">
                             <DataGrid ItemsSource="{Binding ShadesSuccess}" AutoGenerateColumns="False"
-                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+              HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Цвет" Width="100">
+                                    <DataGridTemplateColumn Header="{Tr 'Palette.ColColor'}" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Background="{Binding ColorBrush}" Height="20" Margin="2" BorderBrush="LightGray" BorderThickness="1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="RGB код" Binding="{Binding RgbCode}" Width="*"/>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColRgb'}" Binding="{Binding RgbCode}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColName'}" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Ошибка (#D13438)">
+                        <GroupBox Header="{Tr 'Palette.GroupError'}">
                             <DataGrid ItemsSource="{Binding ShadesError}" AutoGenerateColumns="False"
-                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+              HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Цвет" Width="100">
+                                    <DataGridTemplateColumn Header="{Tr 'Palette.ColColor'}" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Background="{Binding ColorBrush}" Height="20" Margin="2" BorderBrush="LightGray" BorderThickness="1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="RGB код" Binding="{Binding RgbCode}" Width="*"/>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColRgb'}" Binding="{Binding RgbCode}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColName'}" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Информация (#FF8C00)">
+                        <GroupBox Header="{Tr 'Palette.GroupInfo'}">
                             <DataGrid ItemsSource="{Binding ShadesInfo}" AutoGenerateColumns="False"
-                                      HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
+                          HeadersVisibility="Column" CanUserAddRows="False" IsReadOnly="True" MaxHeight="300">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Цвет" Width="100">
+                                    <DataGridTemplateColumn Header="{Tr 'Palette.ColColor'}" Width="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Background="{Binding ColorBrush}" Height="20" Margin="2" BorderBrush="LightGray" BorderThickness="1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="RGB код" Binding="{Binding RgbCode}" Width="*"/>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColRgb'}" Binding="{Binding RgbCode}" Width="*"/>
+                                    <DataGridTextColumn Header="{Tr 'Palette.ColName'}" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
@@ -184,12 +194,12 @@
             <TabItem Header="{Tr 'Tab.Controls'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <Expander Header="Кнопки (Акцент / Критический × состояния)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="{Tr 'Controls.ExpButtons'}" IsExpanded="True" Margin="0,0,0,10">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <StackPanel Margin="5">
-                                        <TextBlock Text="Акцент" FontWeight="Bold" Background="{StaticResource PrimaryBrush}" 
-                                                   Foreground="White" Padding="5" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Tr 'Controls.Accent'}" FontWeight="Bold" Background="{DynamicResource PrimaryBrush}" 
+                                       Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="80"/>
@@ -204,25 +214,25 @@
                                             </Grid.RowDefinitions>
 
                                             <!-- Кнопки используют стиль PrimaryButtonStyle -->
-                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Style="{StaticResource PrimaryButtonStyle}"/>
-                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Background="#005A9E" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Background="#4FADFF" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" IsEnabled="False" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="0" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Style="{DynamicResource PrimaryButtonStyle}"/>
+                                            <Button Grid.Row="0" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="#005A9E" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="#4FADFF" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Padding="12,6" Margin="5"/>
 
-                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Background="White" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Background="#E6F2FF" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Background="#E6F2FF" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="1" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Background="White" BorderBrush="{DynamicResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="#E6F2FF" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="#E6F2FF" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
 
-                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Background="Transparent" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Background="Transparent" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Background="Transparent" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="2" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Background="Transparent" BorderBrush="{DynamicResource PrimaryBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="Transparent" BorderBrush="#005A9E" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="Transparent" BorderBrush="#4FADFF" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Margin="5">
-                                        <TextBlock Text="Критический" FontWeight="Bold" Background="{StaticResource ErrorBrush}" 
+                                        <TextBlock Text="{Tr 'Controls.Critical'}" FontWeight="Bold" Background="{DynamicResource ErrorBrush}" 
                                                    Foreground="White" Padding="5" HorizontalAlignment="Center"/>
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
@@ -237,40 +247,44 @@
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
 
-                                            <Button Grid.Row="0" Grid.Column="0" Content="Обычная" Background="{StaticResource ErrorBrush}" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="0" Grid.Column="1" Content="Нажата" Background="#9A272B" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="0" Grid.Column="2" Content="Загрузка" Background="#FF8A8A" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="0" Grid.Column="3" Content="Неактивна" IsEnabled="False" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="0" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Background="{DynamicResource ErrorBrush}" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="#9A272B" Foreground="White" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="#FF8A8A" Foreground="Black" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="0" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Padding="12,6" Margin="5"/>
 
-                                            <Button Grid.Row="1" Grid.Column="0" Content="Обычная" Background="White" BorderBrush="{StaticResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="1" Content="Нажата" Background="#FFEBEE" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="2" Content="Загрузка" Background="#FFEBEE" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="1" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="1" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Background="White" BorderBrush="{DynamicResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="#FFEBEE" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="#FFEBEE" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="1" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Background="#F5F5F5" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
 
-                                            <Button Grid.Row="2" Grid.Column="0" Content="Обычная" Background="Transparent" BorderBrush="{StaticResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="1" Content="Нажата" Background="Transparent" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="2" Content="Загрузка" Background="Transparent" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
-                                            <Button Grid.Row="2" Grid.Column="3" Content="Неактивна" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
+                                            <Button Grid.Row="2" Grid.Column="0" Content="{Tr 'Controls.Normal'}" Background="Transparent" Foreground="{DynamicResource TextPrimaryBrush}" BorderBrush="{DynamicResource ErrorBrush}" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="1" Content="{Tr 'Controls.Pressed'}" Background="Transparent" Foreground="{DynamicResource TextPrimaryBrush}" BorderBrush="#9A272B" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="2" Content="{Tr 'Controls.Loading'}" Background="Transparent" Foreground="{DynamicResource TextPrimaryBrush}" BorderBrush="#FF8A8A" BorderThickness="1" Padding="12,6" Margin="5" Cursor="Hand"/>
+                                            <Button Grid.Row="2" Grid.Column="3" Content="{Tr 'Controls.Disabled'}" IsEnabled="False" Background="Transparent" BorderBrush="#CCCCCC" BorderThickness="1" Padding="12,6" Margin="5"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Margin="15,0,0,0">
-                                        <TextBlock Text="Переключатели" Style="{StaticResource Heading3Style}"/>
+                                        <TextBlock Text="{Tr 'Controls.Switches'}" Style="{DynamicResource Heading3Style}"/>
                                         <WrapPanel>
-                                            <ToggleButton Content="Акцент" Padding="10,5" Margin="5" Background="{StaticResource PrimaryBrush}" Foreground="White"/>
-                                            <ToggleButton Content="Критический" Padding="10,5" Margin="5" Background="{StaticResource ErrorBrush}" Foreground="White"/>
-                                            <ToggleButton Content="Неактивен" Padding="10,5" Margin="5" IsEnabled="False"/>
+                                            <ToggleButton Content="{Tr 'Controls.Accent'}" Padding="10,5" Margin="5" Background="{DynamicResource PrimaryBrush}" Foreground="White"/>
+                                            <ToggleButton Content="{Tr 'Controls.Critical'}" Padding="10,5" Margin="5" Background="{DynamicResource ErrorBrush}" Foreground="White"/>
+                                            <ToggleButton Content="{Tr 'Controls.DisabledSwitch'}" Padding="10,5" Margin="5" IsEnabled="False"/>
                                         </WrapPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
                         </Expander>
 
-                        <Expander Header="Поля ввода и списки" IsExpanded="True" Margin="0,0,0,10">
+
+                        <Expander Header="{Tr 'Controls.ExpInputs'}" IsExpanded="True" Margin="0,0,0,10">
                             <WrapPanel Margin="5">
                                 <StackPanel Margin="5">
                                     <Label Content="TextBox"/>
-                                    <TextBox Width="180" Text="Введите текст..."/>
+                                    <TextBox Width="180" 
+         Tag="{Tr 'Controls.EnterText'}" 
+         Text="{Binding Tag, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="PasswordBox"/>
@@ -279,17 +293,17 @@
                                 <StackPanel Margin="5">
                                     <Label Content="ComboBox"/>
                                     <ComboBox Width="180" SelectedIndex="0">
-                                        <ComboBoxItem Content="Элемент 1"/>
-                                        <ComboBoxItem Content="Элемент 2"/>
-                                        <ComboBoxItem Content="Элемент 3"/>
+                                        <ComboBoxItem Content="{Tr 'Controls.Item1'}"/>
+                                        <ComboBoxItem Content="{Tr 'Controls.Item2'}"/>
+                                        <ComboBoxItem Content="{Tr 'Controls.Item3'}"/>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Margin="5">
                                     <Label Content="ListBox"/>
                                     <ListBox Width="180" Height="80">
-                                        <ListBoxItem Content="Элемент 1"/>
-                                        <ListBoxItem Content="Элемент 2"/>
-                                        <ListBoxItem Content="Элемент 3"/>
+                                        <ListBoxItem Content="{Tr 'Controls.Item1'}"/>
+                                        <ListBoxItem Content="{Tr 'Controls.Item2'}"/>
+                                        <ListBoxItem Content="{Tr 'Controls.Item3'}"/>
                                     </ListBox>
                                 </StackPanel>
                                 <StackPanel Margin="5">
@@ -297,86 +311,92 @@
                                     <RichTextBox Width="280" Height="80">
                                         <FlowDocument>
                                             <Paragraph>
-                                                Это
-                                                <Bold>жирный</Bold> и
-                                                <Italic>курсивный</Italic> текст.
+                                                <TextBlock Text="{Tr 'Controls.RichThis'}"/>
+                                                <Bold>
+                                                    <TextBlock Text="{Tr 'Controls.RichBold'}"/>
+                                                </Bold>
+                                                <TextBlock Text="{Tr 'Controls.RichAnd'}"/>
+                                                <Italic>
+                                                    <TextBlock Text="{Tr 'Controls.RichItalic'}"/>
+                                                </Italic>
+                                                <TextBlock Text="{Tr 'Controls.RichTextEnd'}"/>
                                             </Paragraph>
+
                                         </FlowDocument>
                                     </RichTextBox>
                                 </StackPanel>
                             </WrapPanel>
                         </Expander>
 
-                        <Expander Header="Текст и метки" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="{Tr 'Controls.ExpText'}" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <TextBlock Text="Заголовок 1 (H1)" Style="{StaticResource Heading1Style}"/>
-                                <TextBlock Text="Заголовок 2 (H2)" Style="{StaticResource Heading2Style}"/>
-                                <TextBlock Text="Заголовок 3 (H3)" Style="{StaticResource Heading3Style}"/>
-                                <TextBlock Text="Обычный текст (Body)" Style="{StaticResource BodyTextStyle}"/>
-                                <TextBlock Text="Подпись (Caption)" Style="{StaticResource CaptionStyle}"/>
+                                <TextBlock Text="{Tr 'Controls.H1'}" Style="{DynamicResource Heading1Style}"/>
+                                <TextBlock Text="{Tr 'Controls.H2'}" Style="{DynamicResource Heading2Style}"/>
+                                <TextBlock Text="{Tr 'Controls.H3'}" Style="{DynamicResource Heading3Style}"/>
+                                <TextBlock Text="{Tr 'Controls.Body'}" Style="{DynamicResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Controls.Caption'}" Style="{DynamicResource CaptionStyle}"/>
                             </StackPanel>
                         </Expander>
-
                         <Expander Header="TreeView" IsExpanded="True" Margin="0,0,0,10">
                             <TreeView Width="250" Height="150" HorizontalAlignment="Left">
-                                <TreeViewItem Header="Корневой узел 1">
-                                    <TreeViewItem Header="Подузел 1.1"/>
-                                    <TreeViewItem Header="Подузел 1.2">
-                                        <TreeViewItem Header="Вложенный 1.2.1"/>
+                                <TreeViewItem Header="{Tr 'Controls.TreeRoot1'}">
+                                    <TreeViewItem Header="{Tr 'Controls.TreeSub1_1'}"/>
+                                    <TreeViewItem Header="{Tr 'Controls.TreeSub1_2'}">
+                                        <TreeViewItem Header="{Tr 'Controls.TreeNested1_2_1'}"/>
                                     </TreeViewItem>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Корневой узел 2">
-                                    <TreeViewItem Header="Подузел 2.1"/>
+                                <TreeViewItem Header="{Tr 'Controls.TreeRoot2'}">
+                                    <TreeViewItem Header="{Tr 'Controls.TreeSub2_1'}"/>
                                 </TreeViewItem>
                             </TreeView>
                         </Expander>
 
-                        <Expander Header="DataGrid (привязан к ViewModel)" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="{Tr 'Controls.ExpDataGrid'}" IsExpanded="True" Margin="0,0,0,10">
                             <DataGrid ItemsSource="{Binding SampleItems}" AutoGenerateColumns="False"
                                       CanUserAddRows="False" IsReadOnly="True" Height="180" Margin="5">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                                    <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"/>
-                                    <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="80"/>
+                                    <DataGridTextColumn Header="{Tr 'Controls.ColTitle'}" Binding="{Binding Title}" Width="*"/>
+                                    <DataGridCheckBoxColumn Header="{Tr 'Controls.ColActive'}" Binding="{Binding IsActive}" Width="80"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Expander>
 
                         <Expander Header="ProgressBar" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <TextBlock Text="Определённый (65%)" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Controls.ProgDeterminate'}" Style="{DynamicResource BodyTextStyle}"/>
                                 <ProgressBar Width="300" Height="20" Value="65" Maximum="100" HorizontalAlignment="Left" Margin="0,0,0,15"/>
-                                <TextBlock Text="Неопределённый (Indeterminate)" Style="{StaticResource BodyTextStyle}"/>
+                                <TextBlock Text="{Tr 'Controls.ProgIndeterminate'}" Style="{DynamicResource BodyTextStyle}"/>
                                 <ProgressBar Width="300" Height="20" IsIndeterminate="True" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Expander>
 
-                        <Expander Header="Всплывающие подсказки" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="{Tr 'Controls.ExpTooltips'}" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
-                                <Button Content="Наведи на меня" ToolTip="Это всплывающая подсказка!"/>
-                                <TextBlock Text="Наведи и на этот текст" ToolTip="ToolTip работает и на TextBlock"/>
+                                <Button Content="{Tr 'Controls.HoverButton'}" ToolTip="{Tr 'Controls.ButtonTooltip'}" Style="{DynamicResource PrimaryButtonStyle}" HorizontalAlignment="Left" Margin="0,0,0,8"/>
+                                <TextBlock Text="{Tr 'Controls.HoverText'}" ToolTip="{Tr 'Controls.TextTooltip'}" Style="{DynamicResource BodyTextStyle}"/>
                             </StackPanel>
                         </Expander>
 
-                        <Expander Header="Меню и контекстное меню" IsExpanded="True" Margin="0,0,0,10">
+                        <Expander Header="{Tr 'Controls.ExpMenus'}" IsExpanded="True" Margin="0,0,0,10">
                             <StackPanel Margin="5">
                                 <Menu Margin="0,0,0,15">
-                                    <MenuItem Header="Файл">
-                                        <MenuItem Header="Открыть"/>
-                                        <MenuItem Header="Сохранить"/>
-                                        <MenuItem Header="Выход"/>
+                                    <MenuItem Header="{Tr 'Controls.MenuFile'}">
+                                        <MenuItem Header="{Tr 'Controls.MenuOpen'}"/>
+                                        <MenuItem Header="{Tr 'Controls.MenuSave'}"/>
+                                        <MenuItem Header="{Tr 'Controls.MenuExit'}"/>
                                     </MenuItem>
-                                    <MenuItem Header="Правка">
-                                        <MenuItem Header="Копировать"/>
-                                        <MenuItem Header="Вставить"/>
+                                    <MenuItem Header="{Tr 'Controls.MenuEdit'}">
+                                        <MenuItem Header="{Tr 'Controls.MenuCopy'}"/>
+                                        <MenuItem Header="{Tr 'Controls.MenuPaste'}"/>
                                     </MenuItem>
                                 </Menu>
-                                <Button Content="Нажми ПКМ для контекстного меню">
+                                <Button Content="{Tr 'Controls.RightClickBtn'}" Style="{DynamicResource PrimaryButtonStyle}" HorizontalAlignment="Left">
                                     <Button.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Header="Контекстное действие 1"/>
-                                            <MenuItem Header="Контекстное действие 2"/>
-                                            <MenuItem Header="Контекстное действие 3"/>
+                                            <MenuItem Header="{Tr 'Controls.CtxAction1'}"/>
+                                            <MenuItem Header="{Tr 'Controls.CtxAction2'}"/>
+                                            <MenuItem Header="{Tr 'Controls.CtxAction3'}"/>
                                         </ContextMenu>
                                     </Button.ContextMenu>
                                 </Button>
@@ -386,12 +406,13 @@
                 </ScrollViewer>
             </TabItem>
 
+
             <!-- ВКЛАДКА 4: Контейнеры компоновки -->
             <TabItem Header="{Tr 'Tab.Containers'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10">
-                        <TextBlock Text="Grid (Сетка)" Style="{StaticResource Heading3Style}"/>
-                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
+                        <TextBlock Text="{Tr 'Containers.Grid'}" Style="{DynamicResource Heading3Style}"/>
+                        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -401,15 +422,15 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Rectangle Fill="{StaticResource PrimaryBrush}" Grid.Column="0" Grid.Row="0" Margin="5"/>
-                                <Rectangle Fill="{StaticResource SuccessBrush}" Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                <Rectangle Fill="{StaticResource ErrorBrush}" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                                <Rectangle Fill="{StaticResource InfoBrush}" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                <Rectangle Fill="{DynamicResource PrimaryBrush}" Grid.Column="0" Grid.Row="0" Margin="5"/>
+                                <Rectangle Fill="{DynamicResource SuccessBrush}" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                <Rectangle Fill="{DynamicResource ErrorBrush}" Grid.Column="0" Grid.Row="1" Margin="5"/>
+                                <Rectangle Fill="{DynamicResource InfoBrush}" Grid.Column="1" Grid.Row="1" Margin="5"/>
                             </Grid>
                         </Border>
 
-                        <TextBlock Text="StackPanel (Стек)" Style="{StaticResource Heading3Style}"/>
-                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
+                        <TextBlock Text="{Tr 'Containers.StackPanel'}" Style="{DynamicResource Heading3Style}"/>
+                        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="100" Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal">
                                 <Rectangle Fill="Aquamarine" Width="100" Margin="5"/>
                                 <Rectangle Fill="#FF5C00" Width="100" Margin="5"/>
@@ -417,8 +438,8 @@
                             </StackPanel>
                         </Border>
 
-                        <TextBlock Text="WrapPanel (Панель с переносом)" Style="{StaticResource Heading3Style}"/>
-                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="{Tr 'Containers.WrapPanel'}" Style="{DynamicResource Heading3Style}"/>
+                        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <WrapPanel>
                                 <Rectangle Fill="#00B7C3" Width="80" Height="50" Margin="5"/>
                                 <Rectangle Fill="#038387" Width="80" Height="50" Margin="5"/>
@@ -428,28 +449,29 @@
                             </WrapPanel>
                         </Border>
 
-                        <TextBlock Text="DockPanel (Панель закрепления)" Style="{StaticResource Heading3Style}"/>
-                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="{Tr 'Containers.DockPanel'}" Style="{DynamicResource Heading3Style}"/>
+                        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <DockPanel>
-                                <Rectangle Fill="{StaticResource PrimaryBrush}" Width="40" DockPanel.Dock="Left" Margin="3"/>
-                                <Rectangle Fill="{StaticResource ErrorBrush}" Width="40" DockPanel.Dock="Right" Margin="3"/>
-                                <Rectangle Fill="{StaticResource SuccessBrush}" Height="30" DockPanel.Dock="Top" Margin="3"/>
-                                <Rectangle Fill="{StaticResource InfoBrush}" Height="30" DockPanel.Dock="Bottom" Margin="3"/>
+                                <Rectangle Fill="{DynamicResource PrimaryBrush}" Width="40" DockPanel.Dock="Left" Margin="3"/>
+                                <Rectangle Fill="{DynamicResource ErrorBrush}" Width="40" DockPanel.Dock="Right" Margin="3"/>
+                                <Rectangle Fill="{DynamicResource SuccessBrush}" Height="30" DockPanel.Dock="Top" Margin="3"/>
+                                <Rectangle Fill="{DynamicResource InfoBrush}" Height="30" DockPanel.Dock="Bottom" Margin="3"/>
                                 <Rectangle Fill="#5C2D91" Margin="3"/>
                             </DockPanel>
                         </Border>
 
-                        <TextBlock Text="Canvas (Холст)" Style="{StaticResource Heading3Style}"/>
-                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
+                        <TextBlock Text="{Tr 'Containers.Canvas'}" Style="{DynamicResource Heading3Style}"/>
+                        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="120" Margin="0,0,0,15">
                             <Canvas>
                                 <Rectangle Fill="#6db3af" Width="50" Height="50" Canvas.Left="10" Canvas.Top="10"/>
-                                <Rectangle Fill="{StaticResource SuccessBrush}" Width="50" Height="50" Canvas.Left="70" Canvas.Top="40"/>
+                                <Rectangle Fill="{DynamicResource SuccessBrush}" Width="50" Height="50" Canvas.Left="70" Canvas.Top="40"/>
                                 <Rectangle Fill="#eb38a0" Width="50" Height="50" Canvas.Left="130" Canvas.Top="15"/>
                             </Canvas>
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
+
 
             <!-- ВКЛАДКА 5: Работа с данными -->
             <TabItem Header="{Tr 'Tab.Data'}">
@@ -460,22 +482,42 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
+                    <!-- ЛЕВАЯ ТАБЛИЦА -->
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="Исходная таблица" Style="{StaticResource Heading2Style}"/>
+                        <TextBlock Text="{Tr 'Data.SourceTable'}" Style="{DynamicResource Heading2Style}"/>
                         <ToolBarTray>
                             <ToolBar>
-                                <Button Content="{Tr 'Data.Add'}" Command="{Binding AddCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <Button Content="{Tr 'Data.Add'}" Command="{Binding AddCommand}" Style="{DynamicResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="{Tr 'Data.Delete'}" Command="{Binding DeleteCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <Button Content="{Tr 'Data.Delete'}" 
+                            Command="{Binding DeleteSourceCommand}" 
+                            CommandParameter="{Binding SelectedItems, Source={x:Reference SourceGrid}}" 
+                            Style="{DynamicResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="{Tr 'Data.Copy'}" Command="{Binding CopyCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <Button Content="{Tr 'Data.Copy'}" 
+                            Command="{Binding CopyCommand}" 
+                            CommandParameter="{Binding SelectedItems, Source={x:Reference SourceGrid}}" 
+                            Style="{DynamicResource PrimaryButtonStyle}"/>
                             </ToolBar>
                         </ToolBarTray>
-                        <DataGrid ItemsSource="{Binding SourceShades}"
-                                  SelectedItem="{Binding SelectedSourceShade, Mode=TwoWay}"
-                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                        <DataGrid x:Name="SourceGrid"
+                      ItemsSource="{Binding SourceShades}"
+                      SelectionMode="Extended"
+                      ClipboardCopyMode="None"
+                      CanUserDeleteRows="False"
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                            <DataGrid.InputBindings>
+                                <KeyBinding Key="C" Modifiers="Ctrl" 
+                                Command="{Binding CopyCommand}" 
+                                CommandParameter="{Binding SelectedItems, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                <KeyBinding Key="V" Modifiers="Ctrl" 
+                                Command="{Binding PasteCommand}"/>
+                                <KeyBinding Key="Delete" 
+                                Command="{Binding DeleteSourceCommand}" 
+                                CommandParameter="{Binding SelectedItems, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataGrid.InputBindings>
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Цвет" Width="60">
+                                <DataGridTemplateColumn Header="{Tr 'Data.ColColor'}" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border Background="{Binding ColorBrush}" Height="20" Margin="2"/>
@@ -483,26 +525,38 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="RGB" Binding="{Binding RgbCode}" Width="*"/>
-                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{Tr 'Data.ColName'}" Binding="{Binding Name}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
 
-                    <Border Grid.Column="1" Width="1" Background="{StaticResource BorderBrush}" Margin="20,0"/>
+                    <Border Grid.Column="1" Width="1" Background="{DynamicResource BorderBrush}" Margin="20,0"/>
 
+                    <!-- ПРАВАЯ ТАБЛИЦА -->
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="Целевая таблица" Style="{StaticResource Heading2Style}"/>
+                        <TextBlock Text="{Tr 'Data.TargetTable'}" Style="{DynamicResource Heading2Style}"/>
                         <ToolBarTray>
                             <ToolBar>
-                                <Button Content="{Tr 'Data.Paste'}" Command="{Binding PasteCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <Button Content="{Tr 'Data.Paste'}" Command="{Binding PasteCommand}" Style="{DynamicResource PrimaryButtonStyle}"/>
                                 <Separator/>
-                                <Button Content="{Tr 'Data.Clear'}" Command="{Binding ClearTargetCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <Button Content="{Tr 'Data.Clear'}" Command="{Binding ClearTargetCommand}" Style="{DynamicResource PrimaryButtonStyle}"/>
                             </ToolBar>
                         </ToolBarTray>
-                        <DataGrid ItemsSource="{Binding TargetShades}"
-                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                        <DataGrid x:Name="TargetGrid"
+                      ItemsSource="{Binding TargetShades}"
+                      SelectionMode="Extended"
+                      ClipboardCopyMode="None"
+                      CanUserDeleteRows="False"
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                            <DataGrid.InputBindings>
+                                <KeyBinding Key="V" Modifiers="Ctrl" 
+                                Command="{Binding PasteCommand}"/>
+                                <KeyBinding Key="Delete" 
+                                Command="{Binding DeleteTargetCommand}" 
+                                CommandParameter="{Binding SelectedItems, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataGrid.InputBindings>
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Цвет" Width="60">
+                                <DataGridTemplateColumn Header="{Tr 'Data.ColColor'}" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border Background="{Binding ColorBrush}" Height="20" Margin="2"/>
@@ -510,40 +564,42 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="RGB" Binding="{Binding RgbCode}" Width="*"/>
-                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{Tr 'Data.ColName'}" Binding="{Binding Name}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
+
                 </Grid>
             </TabItem>
+
 
             <!-- ВКЛАДКА 6: Типы привязок -->
             <TabItem Header="{Tr 'Tab.Bindings'}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="20" MaxWidth="600" HorizontalAlignment="Left">
-                        <TextBlock Text="Демонстрация режимов привязки" Style="{StaticResource Heading1Style}"/>
-                        <TextBlock Text="Измените значение на слайдере вкладки «Основное» и наблюдайте, какие поля обновятся."
-                                   Style="{StaticResource CaptionStyle}" Margin="0,0,0,15"/>
+                        <TextBlock Text="{Tr 'Bindings.Title'}" Style="{DynamicResource Heading1Style}"/>
+                        <TextBlock Text="{Tr 'Bindings.Subtitle'}"
+                       Style="{DynamicResource CaptionStyle}" Margin="0,0,0,15"/>
 
-                        <GroupBox Header="OneTime (значение фиксируется при загрузке)">
+                        <GroupBox Header="{Tr 'Bindings.OneTime'}">
                             <TextBox Text="{Binding FontSize, Mode=OneTime, StringFormat={}{0:F0}}" Margin="10"/>
                         </GroupBox>
 
-                        <GroupBox Header="OneWay (только из ViewModel в UI)">
+                        <GroupBox Header="{Tr 'Bindings.OneWay'}">
                             <TextBox Text="{Binding FontSize, Mode=OneWay, StringFormat={}{0:F0}}" Margin="10"/>
                         </GroupBox>
 
-                        <GroupBox Header="TwoWay + PropertyChanged (мгновенное обновление)">
+                        <GroupBox Header="{Tr 'Bindings.TwoWayProp'}">
                             <TextBox Text="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F0}}" Margin="10"/>
                         </GroupBox>
 
-                        <GroupBox Header="TwoWay + LostFocus (обновление при потере фокуса)">
+                        <GroupBox Header="{Tr 'Bindings.TwoWayLost'}">
                             <TextBox Text="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:F0}}" Margin="10"/>
                         </GroupBox>
 
-                        <TextBlock Text="Текущее значение FontSize в ViewModel:" Style="{StaticResource Heading3Style}" Margin="0,20,0,5"/>
+                        <TextBlock Text="{Tr 'Bindings.CurrentVal'}" Style="{DynamicResource Heading3Style}" Margin="0,20,0,5"/>
 
-                        <TextBlock Text="{Binding FontSize}" FontSize="32" Foreground="{StaticResource PrimaryBrush}"/>
+                        <TextBlock Text="{Binding FontSize}" FontSize="32" Foreground="{DynamicResource PrimaryBrush}"/>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
